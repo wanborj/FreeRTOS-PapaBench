@@ -122,3 +122,63 @@ void enable_rs232(void)
     /* Enable the RS232 port. */
     USART_Cmd(USART2, ENABLE);
 }
+
+
+void send_byte(uint8_t b)
+{
+    while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET);
+
+    GPIOC->ODR ^= 0x00001000;
+
+    USART_SendData(USART2, b);
+}
+
+
+void send_num(uint8_t b)
+{
+    send_byte(b+'0'); 
+}
+
+
+void vPrintString( const char * string )
+{
+    int i = 0;
+    while(string[i] != '\0')
+    {
+        send_byte(string[i]);
+        i++;
+    }
+}
+
+void vPrintNumber( const long c_num )
+{
+    char time[15], tmp;
+    unsigned int i, count = 0;
+    long num = c_num;
+
+    if(num == 0)
+    {
+        vPrintString("0\n\r");
+    }
+    else
+    {
+        // transform long into char * 
+        while( num   )
+        {
+            time[count] = num%10 +'0';
+            count ++;
+            num /= 10;
+        }
+        time[count] = '\0';
+
+        // reverse
+        for( i = 0; i < count/2; ++i  )
+        {
+            tmp = time[i];
+            time[i] = time[count-1-i];
+            time[count-1-i] = tmp;
+        }
+        vPrintString(time);
+        vPrintString("\n\r");
+    }
+}

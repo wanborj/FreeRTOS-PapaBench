@@ -1,6 +1,7 @@
 #ifndef __STM32_P103_H
 #define __STM32_P103_H
 
+#include "inttypes.h"
 /* This library contains routines for interfacing with the STM32 P103 board. */
 
 /* Initialize the LED (the board only has one). */
@@ -22,5 +23,14 @@ void init_rs232(void);
 void enable_rs232_interrupts(void);
 
 void enable_rs232(void);
+
+void send_byte( uint8_t b);
+
+void send_num( uint8_t b);
+
+void vPrintString(const char * );
+
+void vPrintNumber( const long c_num  );
+
 
 #endif /* __STM32_P103_H */
