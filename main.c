@@ -21,12 +21,15 @@ struct parameter
 
 xTaskHandle xTaskOfHandle[NUMBEROFTASK];
 
+extern void vTaskSuspendAll();
+extern signed portBASE_TYPE xTaskResumeAll(); 
 extern portBASE_TYPE xTaskPrio[NUMBEROFTASK]; 
 
 /* can be found in app.c */
 extern portTickType xPeriodTable[NUMBEROFTASK];
 extern pvTaskFunType xTaskTable[NUMBEROFTASK];
 extern xSemaphoreHandle xSemaphoreTable[NUMBEROFTASK];
+extern char * pcNameOfTask[NUMBEROFTASK];
 
 void vSemaphoreInitialise()
 {
@@ -65,7 +68,7 @@ void vTimeTask( void * pvParameter )
     portBASE_TYPE IS_FIRST_TIME_TO_EXE = 1;
     
     // used for periodic task
-    portTickType xLastExecutionTime = 100; 
+    portTickType xLastExecutionTime = 125; 
 
     while(1)
     {
@@ -76,22 +79,26 @@ void vTimeTask( void * pvParameter )
             IS_FIRST_TIME_TO_EXE = 0;
         }
 
+        vTaskSuspendAll();
         vPrintNumber(xMyId);
-        xCurrentTime = xTaskGetTickCount();
-        vPrintNumber(xCurrentTime);
+        xTaskResumeAll();
 
         for( i = 0; i < 500; ++ i )
         {
             xMyFun();
         }
 
-        xCurrentTime = xTaskGetTickCount();
-        vPrintNumber(xCurrentTime);
+        vTaskSuspendAll();
         vPrintNumber((xMyId + 10) * 3);
+        xTaskResumeAll();
+
+        if(xTaskGetTickCountFromISR() > 1000000)
+        {
+            break;
+        }
         vTaskDelayUntil( &xLastExecutionTime, xMyPeriod / portTICK_RATE_MS );
     }
 }
-
 
 
 int main()
@@ -108,7 +115,7 @@ int main()
     portBASE_TYPE i;
     for( i = 0; i < NUMBEROFTASK; ++ i )
     {
-        xTaskCreate(vTimeTask, "vTimeTask",  128, (void *) &parameters[i], xTaskPrio[i], &xTaskOfHandle[i]);
+        xTaskCreate(vTimeTask, pcNameOfTask[i],  128, (void *) &parameters[i], xTaskPrio[i], &xTaskOfHandle[i]);
     }
 
 	/* Start running the tasks. */
@@ -138,7 +145,7 @@ void vApplicationTickHook()
     portBASE_TYPE i;
     portTickType xCurrentTime = xTaskGetTickCount();
     
-    if( xCurrentTime == 100 )
+    if( xCurrentTime == 125 )
     {
         for( i = 0; i < NUMBEROFTASK; ++ i )
         {

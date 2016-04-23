@@ -58,6 +58,23 @@ portTickType xPeriodTable[NUMBEROFTASK] =
     500
 };
 
+char * pcNameOfTask[NUMBEROFTASK] =
+{
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13"
+};
+
 /* explemented in main.c */
 extern void to_autopilot_from_last_radio();
 extern void check_mega128_values_task();

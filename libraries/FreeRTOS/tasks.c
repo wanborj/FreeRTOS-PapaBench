@@ -1638,6 +1638,7 @@ void vTaskSwitchContext( void )
 		/* listGET_OWNER_OF_NEXT_ENTRY walks through the list, so the tasks of the
 		same priority get an equal share of the processor time. */
 		listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[ uxTopReadyPriority ] ) );
+        //vPrintString(pcTaskGetTaskName(pxCurrentTCB));
 	
 		traceTASK_SWITCHED_IN();
 	}
