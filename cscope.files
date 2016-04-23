@@ -321,6 +321,7 @@
 /home/wanbo/program/freertos/libraries/FreeRTOS/include/timers.h
 /home/wanbo/program/freertos/libraries/FreeRTOS/include/FreeRTOS.h
 /home/wanbo/program/freertos/libraries/FreeRTOS/include/portable.h
+/home/wanbo/program/freertos/libraries/FreeRTOS/include/app.h
 /home/wanbo/program/freertos/libraries/FreeRTOS/include/list.h
 /home/wanbo/program/freertos/libraries/FreeRTOS/include/queue.h
 /home/wanbo/program/freertos/libraries/FreeRTOS/include/mpu_wrappers.h
@@ -329,6 +330,7 @@
 /home/wanbo/program/freertos/libraries/FreeRTOS/list.c
 /home/wanbo/program/freertos/libraries/FreeRTOS/timers.c
 /home/wanbo/program/freertos/libraries/FreeRTOS/croutine.c
+/home/wanbo/program/freertos/libraries/FreeRTOS/app.c
 /home/wanbo/program/freertos/libraries/FreeRTOS/queue.c
 /home/wanbo/program/freertos/libraries/CMSIS/CM3/CoreSupport/core_cm3.h
 /home/wanbo/program/freertos/libraries/CMSIS/CM3/CoreSupport/core_cm3.c
@@ -338,3 +340,5 @@
 /home/wanbo/program/freertos/stm32f10x_conf.h
 /home/wanbo/program/freertos/main.c
 /home/wanbo/program/freertos/FreeRTOSConfig.h
+/home/wanbo/program/freertos/data_process/data_process.c
+/home/wanbo/program/freertos/data_process/data_analysis.c

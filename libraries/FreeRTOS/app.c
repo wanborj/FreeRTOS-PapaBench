@@ -26,19 +26,19 @@ xSemaphoreHandle xSemaphoreTable[NUMBEROFTASK];
 
 portBASE_TYPE xTaskPrio[NUMBEROFTASK] = 
 {
-    10,
-    10,
-    9,
-    9,
-    9,
-    10,
-    9,
-    9,
-    7,
-    7,
-    7,
-    7,
-    8
+    5,
+    5,
+    4,
+    4,
+    4,
+    5,
+    4,
+    4,
+    2,
+    2,
+    2,
+    2,
+    3
 };
 
 portTickType xPeriodTable[NUMBEROFTASK] = 

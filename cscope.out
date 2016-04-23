@@ -1,4 +1,4 @@
-cscope 15 $HOME/program/freertos -q 0000018722 0002654517
+cscope 15 $HOME/program/freertos -q 0000018772 0002661954
 	@/home/wanbo/program/freertos/FreeRTOSConfig.h
 
 54 #i‚de‡
@@ -63,7 +63,7 @@ SVC_H™dÀr
 	#c⁄figTICK_RATE_HZ
  ( ( 
 p‹tTickTy≥
- ) 100 )
+ ) 1000 )
 
 	)
 
@@ -85,7 +85,7 @@ p‹tBASE_TYPE
 	#c⁄figTOTAL_HEAP_SIZE
  ( ( 
 size_t
- ) ( 17 * 1024 ) )
+ ) ( 40 * 1024 ) )
 
 	)
 
@@ -37810,6 +37810,472 @@ uöt16_t
 *)(_ubx_∑ylﬂd+1+2*_ubx_block)))
 
 	)
+
+	@/home/wanbo/program/freertos/data_process/data_analysis.c
+
+8 
+	~<°dio.h
+>
+
+9 
+	#NUMBEROFTASK
+ 13
+
+	)
+
+11 
+	gcou¡
+[
+NUMBEROFTASK
+];
+
+12 
+	gmax
+[
+NUMBEROFTASK
+];
+
+13 
+	gmö
+[
+NUMBEROFTASK
+];
+
+14 
+	gavîage
+[
+NUMBEROFTASK
+];
+
+15 
+	gv¨üti⁄
+[
+NUMBEROFTASK
+];
+
+16 
+	$öô
+()
+
+18 
+i
+;
+
+19  
+i
+ = 0; i < 
+NUMBEROFTASK
+; i ++ )
+
+21 
+cou¡
+[
+i
+] = 0;
+
+22 
+max
+[
+i
+] = 0;
+
+23 
+mö
+[
+i
+] = 10000.0;
+
+24 
+avîage
+[
+i
+] = 0.0;
+
+25 
+v¨üti⁄
+[
+i
+] = 0.0;
+
+27 
+	}
+}
+
+29 
+	$gë_avîage_™d_max
+()
+
+31 
+id
+, 
+i
+;
+
+32 
+duøti⁄
+;
+
+33 
+	`‰e›í
+("d©a_¥o˚ss.d©a", "r",
+°dö
+);
+
+34 
+	`sˇnf
+("%d %d\n", &
+id
+, &
+duøti⁄
+Ë!
+EOF
+)
+
+36 
+cou¡
+[
+id
+] ++;
+
+37 if–
+max
+[
+id
+] < 
+duøti⁄
+ )
+
+39 
+max
+[
+id
+] = 
+duøti⁄
+;
+
+42 if–
+mö
+[
+id
+] > 
+duøti⁄
+ )
+
+44 
+mö
+[
+id
+] = 
+duøti⁄
+;
+
+46 
+avîage
+[
+id
+] +
+duøti⁄
+;
+
+48  
+i
+ = 0; i < 
+NUMBEROFTASK
+; ++ i )
+
+50 
+avîage
+[
+i
+] =ávîage[i] / 
+cou¡
+[i];
+
+52 
+	`f˛o£
+(
+°dö
+);
+
+53 
+	}
+}
+
+55 
+	$gë_v¨üti⁄
+()
+
+57 
+id
+, 
+i
+;
+
+58 
+duøti⁄
+;
+
+59 
+ãmp
+[
+NUMBEROFTASK
+];
+
+60  
+i
+ = 0; i < 
+NUMBEROFTASK
+; ++ i )
+
+62 
+ãmp
+[
+i
+] = 0;
+
+65 
+	`‰e›í
+("d©a_¥o˚ss.d©a", "r",
+°dö
+);
+
+67 
+	`sˇnf
+("%d %d", &
+id
+, &
+duøti⁄
+Ë!
+EOF
+ )
+
+69 
+v¨üti⁄
+[
+id
+] +(
+duøti⁄
+ - 
+avîage
+[id]) * (duration -áverage[id]);
+
+72  
+i
+ = 0; i < 
+NUMBEROFTASK
+; ++ i )
+
+74 
+v¨üti⁄
+[
+i
+] /
+cou¡
+[i];
+
+77 
+	`f˛o£
+(
+°dö
+);
+
+78 
+	}
+}
+
+80 
+	$ouçut
+()
+
+82 
+i
+;
+
+83 
+	`¥ötf
+("%5s %5s %10s %10s %10s %10s\n", "id","Count", "Max", "Min", "Average", "Variation");
+
+85 
+	`‰e›í
+("d©a_™Æysis.d©a", "w",
+°dout
+);
+
+87  
+i
+ = 0; i < 
+NUMBEROFTASK
+; ++ i )
+
+89 
+	`¥ötf
+("%5d %5d %10l‡%10l‡%10l‡%10lf\n", 
+i
+, 
+cou¡
+[i], 
+max
+[i], 
+mö
+[i], 
+avîage
+[i], 
+v¨üti⁄
+[i]);
+
+92 
+	`f˛o£
+(
+°dout
+);
+
+93 
+	}
+}
+
+95 
+	$maö
+()
+
+97 
+	`öô
+();
+
+98 
+	`gë_avîage_™d_max
+();
+
+99 
+	`gë_v¨üti⁄
+();
+
+100 
+	`ouçut
+();
+
+103 
+	}
+}
+
+	@/home/wanbo/program/freertos/data_process/data_process.c
+
+8 
+	~<°dio.h
+>
+
+10 
+	$maö
+()
+
+12 
+id1
+, 
+id2
+;
+
+13 
+°¨t_time
+, 
+íd_time
+;
+
+14 
+	`‰e›í
+("../executi⁄_time_of_èsk.d©a", "r", 
+°dö
+);
+
+15 
+	`‰e›í
+("d©a_¥o˚ss.d©a", "w", 
+°dout
+);
+
+17  
+	`sˇnf
+("%d", &
+id1
+Ë!
+EOF
+ )
+
+19 
+	`sˇnf
+("%d", &
+°¨t_time
+);
+
+20 
+	`sˇnf
+("%d", &
+íd_time
+);
+
+21 
+	`sˇnf
+("%d", &
+id2
+);
+
+23 if–
+id2
+ =(
+id1
+ + 10) * 3 )
+
+25 
+	`¥ötf
+("%d %d\n", 
+id1
+, (
+íd_time
+ - 
+°¨t_time
+));
+
+29 
+	`Ârötf
+(
+°dîr
+,"Sîv™à%d had bì¿¥ìm±ed\n", 
+id1
+);
+
+30 
+	`Ârötf
+(
+°dîr
+,"id: %d ; sèπ_timê%d\n", 
+id1
+, 
+°¨t_time
+);
+
+31 
+	`Ârötf
+(
+°dîr
+,"id: %d ;Énd_timê %d\n", 
+id2
+, 
+íd_time
+);
+
+35 
+	`f˛o£
+(
+°dö
+);
+
+36 
+	`f˛o£
+(
+°dout
+);
+
+39 
+	}
+}
 
 	@/home/wanbo/program/freertos/libraries/CMSIS/CM3/CoreSupport/core_cm3.c
 
@@ -92965,6 +93431,438 @@ Sy°emC‹eClockUpd©e
 __˝lu•lus
 
 
+	@/home/wanbo/program/freertos/libraries/FreeRTOS/app.c
+
+8 
+	~"≠p.h
+"
+
+10 
+	#USE_STDPERIPH_DRIVER
+
+
+	)
+
+13 
+	~"µm.h
+"
+
+14 
+	~"£rvo.h
+"
+
+15 
+	~"•i_fbw.h
+"
+
+16 
+	~"ö‰¨ed.h
+"
+
+17 
+	~"e°im©‹.h
+"
+
+18 
+	~"pid.h
+"
+
+19 
+	~"lök_fbw.h
+"
+
+20 
+	~"gps.h
+"
+
+21 
+	~"aut›ûŸ.h
+"
+
+22 
+	~"«v.h
+"
+
+25 
+xSem≠h‹eH™dÀ
+ 
+	gxSem≠h‹eTabÀ
+[
+NUMBEROFTASK
+];
+
+27 
+p‹tBASE_TYPE
+ 
+	gxTaskPrio
+[
+NUMBEROFTASK
+] =
+
+44 
+p‹tTickTy≥
+ 
+	gxPîiodTabÀ
+[
+NUMBEROFTASK
+] =
+
+62 
+to_aut›ûŸ_‰om_œ°_ødio
+();
+
+63 
+check_mega128_vÆues_èsk
+();
+
+64 
+check_Áûß„_èsk
+();
+
+66 
+ødio_c⁄åﬁ_èsk
+();
+
+67 
+£nd_gps_pos
+();
+
+68 
+£nd_ødIR
+();
+
+69 
+£nd_èkeOff
+();
+
+71 
+£nd_boŸ
+();
+
+72 
+£nd_©tôude
+();
+
+73 
+£nd_adc
+();
+
+74 
+£nd_£âögs
+();
+
+75 
+£nd_desúed
+();
+
+76 
+£nd_b©
+();
+
+77 
+£nd_˛imb
+();
+
+78 
+£nd_mode
+();
+
+79 
+£nd_debug
+();
+
+80 
+£nd_«v_ªf
+();
+
+82 
+	$vTask_0
+()
+
+84 
+	`œ°_ødio_‰om_µm
+();
+
+85 
+	}
+}
+
+87 
+	$vTask_1
+()
+
+89 
+	`to_aut›ûŸ_‰om_œ°_ødio
+();
+
+90 
+	`•i_ª£t
+();
+
+91 
+	}
+}
+
+93 
+	$vTask_2
+()
+
+95 
+	`check_mega128_vÆues_èsk
+();
+
+96 
+	}
+}
+
+98 
+	$vTask_3
+()
+
+100 
+	`£rvo_å™smô
+();
+
+101 
+	}
+}
+
+103 
+	$vTask_4
+()
+
+105 
+	`check_Áûß„_èsk
+();
+
+106 
+	}
+}
+
+108 
+	$vTask_5
+()
+
+110 
+	`ødio_c⁄åﬁ_èsk
+();
+
+111 
+	`ú_gaö_ˇlib
+();
+
+112 
+	}
+}
+
+114 
+	$vTask_6
+()
+
+116 
+	`ú_upd©e
+();
+
+117 
+	`e°im©‹_upd©e_°©e_ö‰¨ed
+();
+
+118 
+	`rﬁl_pôch_pid_run
+();
+
+119 
+	}
+}
+
+121 
+	$vTask_7
+()
+
+123 
+	`lök_fbw_£nd
+();
+
+124 
+	}
+}
+
+126 
+	$vTask_8
+()
+
+128 
+	`∑r£_gps_msg
+();
+
+129 
+	`£nd_gps_pos
+();
+
+130 
+	`£nd_ødIR
+();
+
+131 
+	`£nd_èkeOff
+();
+
+132 
+	}
+}
+
+134 
+	$vTask_9
+()
+
+136 
+	`«v_home
+();
+
+137 
+	`«v_upd©e
+();
+
+138 
+	`cour£_pid_run
+();
+
+139 
+	}
+}
+
+141 
+	$vTask_10
+()
+
+143 
+	`Ætôude_pid_run
+();
+
+144 
+	}
+}
+
+146 
+	$vTask_11
+()
+
+148 
+	`˛imb_pid_run
+();
+
+149 
+	}
+}
+
+151 
+	$vTask_12
+()
+
+153 
+	`£nd_boŸ
+();
+
+154 
+	`£nd_©tôude
+();
+
+155 
+	`£nd_adc
+();
+
+156 
+	`£nd_£âögs
+();
+
+157 
+	`£nd_desúed
+();
+
+158 
+	`£nd_b©
+();
+
+159 
+	`£nd_˛imb
+();
+
+160 
+	`£nd_mode
+();
+
+161 
+	`£nd_debug
+();
+
+162 
+	`£nd_«v_ªf
+();
+
+163 
+	}
+}
+
+165 
+pvTaskFunTy≥
+ 
+	gxTaskTabÀ
+[
+NUMBEROFTASK
+] =
+
+167 &
+vTask_0
+,
+
+168 &
+vTask_1
+,
+
+169 &
+vTask_2
+,
+
+170 &
+vTask_3
+,
+
+171 &
+vTask_4
+,
+
+172 &
+vTask_5
+,
+
+173 &
+vTask_6
+,
+
+174 &
+vTask_7
+,
+
+175 &
+vTask_8
+,
+
+176 &
+vTask_9
+,
+
+177 &
+vTask_10
+,
+
+178 &
+vTask_11
+,
+
+179 &
+vTask_12
+
+
 	@/home/wanbo/program/freertos/libraries/FreeRTOS/croutine.c
 
 67 
@@ -95678,6 +96576,104 @@ pcTaskName
 175 }
 
 	)
+
+	@/home/wanbo/program/freertos/libraries/FreeRTOS/include/app.h
+
+8 #i‚de‡
+_APP_H
+
+
+9 
+	#_APP_H
+
+
+	)
+
+11 
+	~"°m32f10x.h
+"
+
+14 
+	~"FªeRTOS.h
+"
+
+15 
+	~"èsk.h
+"
+
+16 
+	~"li°.h
+"
+
+17 
+	~"queue.h
+"
+
+18 
+	~"£mphr.h
+"
+
+20 
+	#NUMBEROFTASK
+ 13
+
+	)
+
+22 –* 
+	tpvTaskFunTy≥
+ )();
+
+24 
+	`vTask_0
+();
+
+25 
+	`vTask_1
+();
+
+26 
+	`vTask_2
+();
+
+27 
+	`vTask_3
+();
+
+28 
+	`vTask_4
+();
+
+29 
+	`vTask_5
+();
+
+30 
+	`vTask_6
+();
+
+31 
+	`vTask_7
+();
+
+32 
+	`vTask_8
+();
+
+33 
+	`vTask_9
+();
+
+34 
+	`vTask_10
+();
+
+35 
+	`vTask_11
+();
+
+36 
+	`vTask_12
+();
 
 	@/home/wanbo/program/freertos/libraries/FreeRTOS/include/croutine.h
 
@@ -399174,99 +400170,469 @@ RESET
 	~<°rög.h
 >
 
-11 
-£tup_h¨dw¨e
+10 
+	~"≠p.h
+"
+
+13 
+	s∑ømëî
+
+
+15 
+p‹tBASE_TYPE
+ 
+	mxMyId
+;
+
+16 
+pvTaskFunTy≥
+ 
+	mxMyFun
+;
+
+17 
+p‹tTickTy≥
+ 
+	mxPîiod
+;
+
+18 
+xSem≠h‹eH™dÀ
+ 
+	mxMySem
+;
+
+20 }
+	g∑ømëîs
+[
+NUMBEROFTASK
+];
+
+22 
+xTaskH™dÀ
+ 
+	gxTaskOfH™dÀ
+[
+NUMBEROFTASK
+];
+
+24 
+p‹tBASE_TYPE
+ 
+xTaskPrio
+[
+NUMBEROFTASK
+];
+
+27 
+p‹tTickTy≥
+ 
+xPîiodTabÀ
+[
+NUMBEROFTASK
+];
+
+28 
+pvTaskFunTy≥
+ 
+xTaskTabÀ
+[
+NUMBEROFTASK
+];
+
+29 
+xSem≠h‹eH™dÀ
+ 
+xSem≠h‹eTabÀ
+[
+NUMBEROFTASK
+];
+
+31 
+	$vSem≠h‹eInôüli£
+()
+
+33 
+p‹tBASE_TYPE
+ 
+i
+;
+
+35  
+i
+ = 0; i < 
+NUMBEROFTASK
+; ++ i )
+
+37 
+	`vSem≠h‹eCª©eBö¨y
+(
+xSem≠h‹eTabÀ
+[
+i
+]);
+
+39 
+	`xSem≠h‹eTake
+(
+xSem≠h‹eTabÀ
+[
+i
+], 
+p‹tMAX_DELAY
+);
+
+41 
+	}
+}
+
+43 
+	$vP¨amëîsInô
+()
+
+45 
+p‹tBASE_TYPE
+ 
+i
+;
+
+46  
+i
+ = 0; i < 
+NUMBEROFTASK
+; ++ i )
+
+48 
+∑ømëîs
+[
+i
+].
+xMyId
+ = i;
+
+49 
+∑ømëîs
+[
+i
+].
+xMyFun
+ = 
+xTaskTabÀ
+[i];
+
+50 
+∑ømëîs
+[
+i
+].
+xPîiod
+ = 
+xPîiodTabÀ
+[i];
+
+51 
+∑ømëîs
+[
+i
+].
+xMySem
+ = 
+xSem≠h‹eTabÀ
+[i];
+
+53 
+	}
+}
+
+55 
+	$vTimeTask
+–* 
+pvP¨amëî
+ )
+
+57 
+∑ømëî
+ *
+xMyP¨amëî
+ = (∑ømëî *)
+pvP¨amëî
+;
+
+58 
+p‹tBASE_TYPE
+ 
+xMyId
+ = 
+xMyP¨amëî
+->xMyId;
+
+59 
+pvTaskFunTy≥
+ 
+xMyFun
+ = 
+xMyP¨amëî
+->xMyFun;
+
+60 
+p‹tTickTy≥
+ 
+xMyPîiod
+ = 
+xMyP¨amëî
+->
+xPîiod
+;
+
+61 
+xSem≠h‹eH™dÀ
+ 
+xMySem
+ = 
+xMyP¨amëî
+->xMySem;
+
+63 
+p‹tBASE_TYPE
+ 
+i
+;
+
+64 
+p‹tTickTy≥
+ 
+xCuºítTime
+;
+
+65 
+p‹tBASE_TYPE
+ 
+IS_FIRST_TIME_TO_EXE
+ = 1;
+
+68 
+p‹tTickTy≥
+ 
+xLa°Executi⁄Time
+ = 100;
+
+73 if–
+IS_FIRST_TIME_TO_EXE
+ == 1 )
+
+75 
+	`xSem≠h‹eTake
+(
+xMySem
+, 
+p‹tMAX_DELAY
+);
+
+76 
+IS_FIRST_TIME_TO_EXE
+ = 0;
+
+79 
+	`vPrötNumbî
+(
+xMyId
+);
+
+80 
+xCuºítTime
+ = 
+	`xTaskGëTickCou¡
 ();
 
-13 
+81 
+	`vPrötNumbî
+(
+xCuºítTime
+);
+
+83  
+i
+ = 0; i < 500; ++ i )
+
+85 
+	`xMyFun
+();
+
+88 
+xCuºítTime
+ = 
+	`xTaskGëTickCou¡
+();
+
+89 
+	`vPrötNumbî
+(
+xCuºítTime
+);
+
+90 
+	`vPrötNumbî
+((
+xMyId
+ + 10) * 3);
+
+91 
+	`vTaskDñayU¡û
+–&
+xLa°Executi⁄Time
+, 
+xMyPîiod
+ / 
+p‹tTICK_RATE_MS
+ );
+
+93 
+	}
+}
+
+97 
 	$maö
 ()
 
-15 
+100 
 	`öô_Àd
 ();
 
-16 
+101 
 	`öô_rs232
 ();
 
-17 
+102 
 	`íabÀ_rs232_öãºu±s
 ();
 
-18 
+103 
 	`íabÀ_rs232
 ();
 
-21 
+105 
+	`vSem≠h‹eInôüli£
+();
+
+106 
+	`vP¨amëîsInô
+();
+
+108 
+p‹tBASE_TYPE
+ 
+i
+;
+
+109  
+i
+ = 0; i < 
+NUMBEROFTASK
+; ++ i )
+
+111 
 	`xTaskCª©e
 (
-Àd_Êash_èsk
-, (sig√d 
-p‹tCHAR
- *Ë"LED Fœsh", 512 , 
-NULL
-, 
-tskIDLE_PRIORITY
- + 5, NULL);
+vTimeTask
+, "vTimeTask", 128, (*Ë&
+∑ømëîs
+[
+i
+], 
+xTaskPrio
+[i], &
+xTaskOfH™dÀ
+[i]);
 
-24 
+115 
 	`vTaskSèπScheduÀr
 ();
 
-27 
+118 
 	}
 }
 
-29 
+120 
 	$myTø˚Cª©e
  (){
 
-30 
+121 
 	}
 }
 
-32 
+123 
 	$myTø˚SwôchedIn
  (){
 
-33 
+124 
 	}
 }
 
-35 
+126 
 	$myTø˚SwôchedOut
  (){
 
-36 
+127 
 	}
 }
 
-38 
+129 
 ölöe
  
 	$myTø˚GëTick
 (){
 
-39 
+130 
 	}
 }
 
-41 
+132 
 ölöe
  
 	$myTø˚GëTimeMûli£c⁄d
 (){
 
-43 
+134 
 	}
 }
 
-45 
+136 
 	$vAµliˇti⁄TickHook
 ()
 
-47 
+138 
+p‹tBASE_TYPE
+ 
+i
+;
+
+139 
+p‹tTickTy≥
+ 
+xCuºítTime
+ = 
+	`xTaskGëTickCou¡
+();
+
+141 if–
+xCuºítTime
+ == 100 )
+
+143  
+i
+ = 0; i < 
+NUMBEROFTASK
+; ++ i )
+
+145 
+	`xSem≠h‹eGive
+–
+xSem≠h‹eTabÀ
+[
+i
+] );
+
+148 
 	}
 }
 
@@ -399794,11 +401160,11 @@ USART2
 b
 );
 
-135 
+134 
 	}
 }
 
-141 
+137 
 	$£nd_num
 (
 uöt8_t
@@ -399806,33 +401172,33 @@ uöt8_t
 b
 )
 
-143 
+139 
 	`£nd_byã
 (
 b
 +'0');
 
-145 
+140 
 	}
 }
 
-152 
+143 
 	$vPrötSåög
 –c⁄° * 
 °rög
  )
 
-154 
+145 
 i
  = 0;
 
-155 
+146 
 °rög
 [
 i
 ] != '\0')
 
-157 
+148 
 	`£nd_byã
 (
 °rög
@@ -399840,51 +401206,51 @@ i
 i
 ]);
 
-158 
+149 
 i
 ++;
 
-160 
+151 
 	}
 }
 
-166 
+153 
 	$vPrötNumbî
 –c⁄° 
 c_num
  )
 
-168 
+155 
 time
 [15], 
 tmp
 ;
 
-169 
+156 
 i
 , 
 cou¡
  = 0;
 
-170 
+157 
 num
  = 
 c_num
 ;
 
-172 if(
+159 if(
 num
  == 0)
 
-174 
+161 
 	`vPrötSåög
 ("0\n\r");
 
-179  
+166  
 num
  )
 
-181 
+168 
 time
 [
 cou¡
@@ -399892,27 +401258,27 @@ cou¡
 num
 %10 +'0';
 
-182 
+169 
 cou¡
  ++;
 
-183 
+170 
 num
  /= 10;
 
-185 
+172 
 time
 [
 cou¡
 ] = '\0';
 
-188  
+175  
 i
  = 0; i < 
 cou¡
 /2; ++i )
 
-190 
+177 
 tmp
  = 
 time
@@ -399920,7 +401286,7 @@ time
 i
 ];
 
-191 
+178 
 time
 [
 i
@@ -399928,7 +401294,7 @@ i
 cou¡
 -1-i];
 
-192 
+179 
 time
 [
 cou¡
@@ -399938,17 +401304,17 @@ i
 tmp
 ;
 
-194 
+181 
 	`vPrötSåög
 (
 time
 );
 
-195 
+182 
 	`vPrötSåög
 ("\n\r");
 
-197 
+184 
 	}
 }
 
@@ -399964,43 +401330,51 @@ __STM32_P103_H
 
 	)
 
-7 
+4 
+	~"öây≥s.h
+"
+
+8 
 öô_Àd
 ();
 
-10 
+11 
 öô_buâ⁄
 ();
 
-20 
+21 
 öô_rs232
 ();
 
-22 
+23 
 íabÀ_rs232_öãºu±s
 ();
 
-24 
+25 
 íabÀ_rs232
 ();
 
-26 
+27 
 £nd_byã
 –
 uöt8_t
- );
+ 
+b
+);
 
-28 
+29 
 £nd_num
 –
 uöt8_t
- );
+ 
+b
+);
 
-30 
+31 
 vPrötSåög
 (const * );
 
-32 
+33 
 vPrötNumbî
 –c⁄° 
 c_num
@@ -400130,7 +401504,7 @@ SVC_H™dÀr
 	#c⁄figTICK_RATE_HZ
  ( ( 
 p‹tTickTy≥
- ) 100 )
+ ) 1000 )
 
 	)
 
@@ -400152,7 +401526,7 @@ p‹tBASE_TYPE
 	#c⁄figTOTAL_HEAP_SIZE
  ( ( 
 size_t
- ) ( 17 * 1024 ) )
+ ) ( 40 * 1024 ) )
 
 	)
 
@@ -400306,43 +401680,51 @@ __STM32_P103_H
 
 	)
 
-7 
+4 
+	~"öây≥s.h
+"
+
+8 
 öô_Àd
 ();
 
-10 
+11 
 öô_buâ⁄
 ();
 
-20 
+21 
 öô_rs232
 ();
 
-22 
+23 
 íabÀ_rs232_öãºu±s
 ();
 
-24 
+25 
 íabÀ_rs232
 ();
 
-26 
+27 
 £nd_byã
 –
 uöt8_t
- );
+ 
+b
+);
 
-28 
+29 
 £nd_num
 –
 uöt8_t
- );
+ 
+b
+);
 
-30 
+31 
 vPrötSåög
 (const * );
 
-32 
+33 
 vPrötNumbî
 –c⁄° 
 c_num
@@ -400412,8 +401794,8 @@ ex¥
 1
 .
 0
-343
-26828
+347
+27059
 /home/wanbo/program/freertos/FreeRTOSConfig.h
 /home/wanbo/program/freertos/benchmark/avr/include/avr/interrupt.h
 /home/wanbo/program/freertos/benchmark/avr/include/avr/io.h
@@ -400495,14 +401877,18 @@ ex¥
 /home/wanbo/program/freertos/benchmark/sw/var/include/messages.h
 /home/wanbo/program/freertos/benchmark/sw/var/include/radio.h
 /home/wanbo/program/freertos/benchmark/sw/var/include/ubx_protocol.h
+/home/wanbo/program/freertos/data_process/data_analysis.c
+/home/wanbo/program/freertos/data_process/data_process.c
 /home/wanbo/program/freertos/libraries/CMSIS/CM3/CoreSupport/core_cm3.c
 /home/wanbo/program/freertos/libraries/CMSIS/CM3/CoreSupport/core_cm3.h
 /home/wanbo/program/freertos/libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/stm32f10x.h
 /home/wanbo/program/freertos/libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/system_stm32f10x.c
 /home/wanbo/program/freertos/libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/system_stm32f10x.h
+/home/wanbo/program/freertos/libraries/FreeRTOS/app.c
 /home/wanbo/program/freertos/libraries/FreeRTOS/croutine.c
 /home/wanbo/program/freertos/libraries/FreeRTOS/include/FreeRTOS.h
 /home/wanbo/program/freertos/libraries/FreeRTOS/include/StackMacros.h
+/home/wanbo/program/freertos/libraries/FreeRTOS/include/app.h
 /home/wanbo/program/freertos/libraries/FreeRTOS/include/croutine.h
 /home/wanbo/program/freertos/libraries/FreeRTOS/include/list.h
 /home/wanbo/program/freertos/libraries/FreeRTOS/include/mpu_wrappers.h
