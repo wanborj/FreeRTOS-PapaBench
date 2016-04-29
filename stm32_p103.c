@@ -152,7 +152,7 @@ void vPrintString( const char * string )
 
 void vPrintNumber( const long c_num )
 {
-    char time[15], tmp;
+    char time[33], tmp;
     unsigned int i, count = 0;
     long num = c_num;
 

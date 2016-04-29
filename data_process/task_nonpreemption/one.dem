@@ -1,0 +1,7 @@
+set title "Distribution of Task 0' Execution Time"
+
+set key box
+set grid
+set autoscale fix
+
+plot 'one.out' using 1:2 w p pt 7 ps 1 title "execution time(ms)"

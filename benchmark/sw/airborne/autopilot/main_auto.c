@@ -120,7 +120,7 @@ if(calib_status == NO_CALIB)
 {
     if (cputime < MAX_DELAY_FOR_CALIBRATION && pprz_mode == PPRZ_MODE_AUTO1 ) {
       calib_status = WAITING_CALIB_CONTRAST;
-      DOWNLINK_SEND_CALIB_START();
+      //DOWNLINK_SEND_CALIB_START();
     }
 }
 else if (calib_status == WAITING_CALIB_CONTRAST)
@@ -128,9 +128,9 @@ else if (calib_status == WAITING_CALIB_CONTRAST)
     if (STICK_PUSHED(from_fbw.channels[RADIO_ROLL])) {
       ir_gain_calib();
       estimator_rad_of_ir = ir_rad_of_ir;
-      DOWNLINK_SEND_RAD_OF_IR(&estimator_ir, &estimator_rad, &estimator_rad_of_ir, &ir_roll_neutral, &ir_pitch_neutral);
+      //DOWNLINK_SEND_RAD_OF_IR(&estimator_ir, &estimator_rad, &estimator_rad_of_ir, &ir_roll_neutral, &ir_pitch_neutral);
       calib_status = CALIB_DONE;
-      DOWNLINK_SEND_CALIB_CONTRAST(&ir_contrast);
+      //DOWNLINK_SEND_CALIB_CONTRAST(&ir_contrast);
     }
 }
 else {}
@@ -361,7 +361,8 @@ void radio_control_task( void ) {
   if (link_fbw_receive_valid) {
     uint8_t mode_changed = FALSE;
     copy_from_to_fbw();
-    if ((bit_is_set(from_fbw.status, RADIO_REALLY_LOST) && (pprz_mode == PPRZ_MODE_AUTO1 || pprz_mode == PPRZ_MODE_MANUAL)) || too_far_from_home) {
+    //if ((bit_is_set(from_fbw.status, RADIO_REALLY_LOST) && (pprz_mode == PPRZ_MODE_AUTO1 || pprz_mode == PPRZ_MODE_MANUAL)) || too_far_from_home) 
+    {
       pprz_mode = PPRZ_MODE_HOME;
       mode_changed = TRUE;
     }
@@ -383,7 +384,7 @@ void radio_control_task( void ) {
     // add by wanbo
     mode_changed = 1;
     if ( mode_changed )
-      DOWNLINK_SEND_PPRZ_MODE(&pprz_mode, &vertical_mode, &inflight_calib_mode, &mcu1_status, &ir_estim_mode);
+      //DOWNLINK_SEND_PPRZ_MODE(&pprz_mode, &vertical_mode, &inflight_calib_mode, &mcu1_status, &ir_estim_mode);
       
     // add by wanbo
     //if (pprz_mode == PPRZ_MODE_AUTO1) 
@@ -670,14 +671,15 @@ void stabilisation_task(void)
 void send_gps_pos( void ) {
   gps_msg_received = FALSE;
   if (gps_pos_available){
-     DOWNLINK_SEND_GPS(&gps_mode, &gps_utm_east, &gps_utm_north, &gps_fcourse, &gps_falt, &gps_fspeed,&gps_fclimb, &gps_ftow);
+     //DOWNLINK_SEND_GPS(&gps_mode, &gps_utm_east, &gps_utm_north, &gps_fcourse, &gps_falt, &gps_fspeed,&gps_fclimb, &gps_ftow);
      estimator_update_state_gps();
   }
 }
 
 void send_radIR(void){
-  if (gps_pos_available)
-     DOWNLINK_SEND_RAD_OF_IR(&estimator_ir, &estimator_rad, &estimator_rad_of_ir, &ir_roll_neutral, &ir_pitch_neutral);
+    if (gps_pos_available){
+      //DOWNLINK_SEND_RAD_OF_IR(&estimator_ir, &estimator_rad, &estimator_rad_of_ir, &ir_roll_neutral, &ir_pitch_neutral);
+    }
 }
 
 void send_takeOff(void){
@@ -685,7 +687,7 @@ void send_takeOff(void){
      if (!estimator_flight_time && (estimator_hspeed_mod > MIN_SPEED_FOR_TAKEOFF)) {
         estimator_flight_time = 1;
         launch = TRUE; /* Not set in non auto launch */
-        DOWNLINK_SEND_TAKEOFF(&cputime);
+        //DOWNLINK_SEND_TAKEOFF(&cputime);
      }
      gps_pos_available = FALSE; 
   }

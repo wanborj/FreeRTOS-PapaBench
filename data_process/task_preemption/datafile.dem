@@ -8,7 +8,7 @@ set autoscale
 set grid
 
 set xtics 0,1
-set ytics 0,5
+set ytics 0,1
 set xlabel "Task ID"
 set ylabel "Time (ms)"
 

@@ -81,12 +81,13 @@ static uint8_t ppm_cpt, last_ppm_cpt;
 void to_autopilot_from_last_radio (void) {
   uint8_t i;
   for(i = 0; i < RADIO_CTL_NB; i++)
-     to_mega128.channels[i] = last_radio[i];
+      to_mega128.channels[i] = last_radio[i];
+
   to_mega128.status = (radio_ok ? _BV(STATUS_RADIO_OK) : 0);
   to_mega128.status |= (radio_really_lost ? _BV(RADIO_REALLY_LOST) : 0);
   if (last_radio_contains_avg_channels) {
-    to_mega128.status |= _BV(AVERAGED_CHANNELS_SENT);
-    last_radio_contains_avg_channels = FALSE;
+      to_mega128.status |= _BV(AVERAGED_CHANNELS_SENT);
+      last_radio_contains_avg_channels = FALSE;
   }
   to_mega128.ppm_cpt = last_ppm_cpt;
 #ifndef CTL_BRD_V1_1

@@ -43,20 +43,21 @@ portBASE_TYPE xTaskPrio[NUMBEROFTASK] =
 
 portTickType xPeriodTable[NUMBEROFTASK] = 
 {
-    125,
-    125,
-    250,
-    250,
-    250,
-    125,
-    250,
-    250,
-    1250,
-    1250,
-    1250,
-    1250,
-    500
+    100,
+    100,
+    200,
+    200,
+    200,
+    100,
+    200,
+    200,
+    1000,
+    1000,
+    1000,
+    1000,
+    400   
 };
+
 
 char * pcNameOfTask[NUMBEROFTASK] =
 {
@@ -101,13 +102,13 @@ void vTask_0()
     last_radio_from_ppm(); //ppm.h
 }
 
-void vTask_1()
+void  vTask_1()
 {
     to_autopilot_from_last_radio();  //main_auto.c
     spi_reset(); // spi_fbw.h
 }
 
-void vTask_2()
+void  vTask_2()
 {
     check_mega128_values_task(); // main_auto.c
 }

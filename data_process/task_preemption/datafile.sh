@@ -1,26 +1,64 @@
 #!/bin/bash
 
+awk '
+BEGIN{
+    id = -1;
+    time1 = 0;
+    time2 = 0.0;
+}
+{
+    if($1 < 100){
+        id = $1;
+    }else if( time1 == 0 ){
+        time1 = $1;
+    }else{
+        print id, time1, $1, $2;
+        id = -1;
+        time1 = 0;
+    }
+} 
+' response_time.data > datafile.data
+
 # get the execution time of all task under the preemptable scheduler
 awk '
 BEGIN{
     for(i=0;i<13;i++){ 
         flag[i]=0;
         time[i]=0;
+        ready[i]=0;
         error[i]=0;
     }
+    maxtime[0]= 20;
+    maxtime[1]= 10;
+    maxtime[2]= 5;
+    maxtime[3]= 20;
+    maxtime[4]= 25;
+    maxtime[5]= 28;
+    maxtime[6]= 26;
+    maxtime[7]= 5;
+    maxtime[8]= 10;
+    maxtime[9]= 30;
+    maxtime[10]= 14;
+    maxtime[11]= 30;
+    maxtime[12]= 4;
 }
 {
     if($1<14 && flag[$1]==0){
         flag[$1] = 1;
-        time[$1] = $2;
+        ready[$1] = $2;
+        time[$1] = $4;
     }
     else{
-        if(flag[ $1/3 -10 ] == 1){
-            print ($1/3 -10), ($2-time[$1/3-10])/1000000.0;
-            flag[$1/3 -10] = 0;
+        id = $1/3-10;
+        if(flag[ id ] == 1){
+            execution_time = ($4-time[id])/1000000.0;
+            #if( execution_time < maxtime[id] ){
+                print id, execution_time, ready[id], $3, $2;
+            #}
+            flag[id] = 0;
         }
         else{
-            error[$1/3 -10] ++; 
+            error[id] ++; 
         }
     }
 }

@@ -10,11 +10,11 @@ set multiplot layout 2,1
 set ylabel "Task ID"
 set xlabel "Counts"
 
-plot 'formate_order.data1' using 1:2 w lp pt 7 t "Order"
+plot 'formate_order.data1' using 1:4 w lp pt 7 t "Order"
 
 set ylabel "Task ID"
 set xlabel "Counts"
 
-plot 'formate_order.data2' using 1:2 w lp pt 7 t "Order"
+plot 'formate_order.data2' using 1:4 w lp pt 7 t "Order"
 
 unset multiplot

@@ -1,4 +1,4 @@
-cscope 15 $HOME/program/freertos+papabench -q 0000018775 0002665600
+cscope 15 $HOME/program/freertos+papabench -q 0000018774 0002665597
 	@/home/wanbo/program/freertos+papabench/FreeRTOSConfig.h
 
 54 #i‚de‡
@@ -37,7 +37,7 @@ SVC_H™dÀr
 
 75 
 	#c⁄figUSE_PREEMPTION
- 0
+ 1
 
 	)
 
@@ -400222,7 +400222,17 @@ xTaskH™dÀ
 NUMBEROFTASK
 ];
 
-24 
+24 
+vTaskSu•ídAŒ
+();
+
+25 sig√d 
+p‹tBASE_TYPE
+ 
+xTaskResumeAŒ
+();
+
+26 
 p‹tBASE_TYPE
  
 xTaskPrio
@@ -400230,7 +400240,7 @@ xTaskPrio
 NUMBEROFTASK
 ];
 
-27 
+29 
 p‹tTickTy≥
  
 xPîiodTabÀ
@@ -400238,7 +400248,7 @@ xPîiodTabÀ
 NUMBEROFTASK
 ];
 
-28 
+30 
 pvTaskFunTy≥
  
 xTaskTabÀ
@@ -400246,7 +400256,7 @@ xTaskTabÀ
 NUMBEROFTASK
 ];
 
-29 
+31 
 xSem≠h‹eH™dÀ
  
 xSem≠h‹eTabÀ
@@ -400254,29 +400264,29 @@ xSem≠h‹eTabÀ
 NUMBEROFTASK
 ];
 
-30 * 
+32 * 
 pcNameOfTask
 [
 NUMBEROFTASK
 ];
 
-32 
+34 
 	$vSem≠h‹eInôüli£
 ()
 
-34 
+36 
 p‹tBASE_TYPE
  
 i
 ;
 
-36  
+38  
 i
  = 0; i < 
 NUMBEROFTASK
 ; ++ i )
 
-38 
+40 
 	`vSem≠h‹eCª©eBö¨y
 (
 xSem≠h‹eTabÀ
@@ -400284,7 +400294,7 @@ xSem≠h‹eTabÀ
 i
 ]);
 
-40 
+42 
 	`xSem≠h‹eTake
 (
 xSem≠h‹eTabÀ
@@ -400294,27 +400304,27 @@ i
 p‹tMAX_DELAY
 );
 
-42 
+44 
 	}
 }
 
-44 
+46 
 	$vP¨amëîsInô
 ()
 
-46 
+48 
 p‹tBASE_TYPE
  
 i
 ;
 
-47  
+49  
 i
  = 0; i < 
 NUMBEROFTASK
 ; ++ i )
 
-49 
+51 
 ∑ømëîs
 [
 i
@@ -400322,7 +400332,7 @@ i
 xMyId
  = i;
 
-50 
+52 
 ∑ømëîs
 [
 i
@@ -400332,7 +400342,7 @@ xMyFun
 xTaskTabÀ
 [i];
 
-51 
+53 
 ∑ømëîs
 [
 i
@@ -400342,7 +400352,7 @@ xPîiod
 xPîiodTabÀ
 [i];
 
-52 
+54 
 ∑ømëîs
 [
 i
@@ -400352,17 +400362,17 @@ xMySem
 xSem≠h‹eTabÀ
 [i];
 
-54 
+56 
 	}
 }
 
-56 
+58 
 	$vTimeTask
 –* 
 pvP¨amëî
  )
 
-58 
+60 
 ∑ømëî
  *
 xMyP¨amëî
@@ -400370,7 +400380,7 @@ xMyP¨amëî
 pvP¨amëî
 ;
 
-59 
+61 
 p‹tBASE_TYPE
  
 xMyId
@@ -400378,7 +400388,7 @@ xMyId
 xMyP¨amëî
 ->xMyId;
 
-60 
+62 
 pvTaskFunTy≥
  
 xMyFun
@@ -400386,7 +400396,7 @@ xMyFun
 xMyP¨amëî
 ->xMyFun;
 
-61 
+63 
 p‹tTickTy≥
  
 xMyPîiod
@@ -400396,7 +400406,7 @@ xMyP¨amëî
 xPîiod
 ;
 
-62 
+64 
 xSem≠h‹eH™dÀ
  
 xMySem
@@ -400404,35 +400414,35 @@ xMySem
 xMyP¨amëî
 ->xMySem;
 
-64 
+66 
 p‹tBASE_TYPE
  
 i
 ;
 
-65 
+67 
 p‹tTickTy≥
  
 xCuºítTime
 ;
 
-66 
+68 
 p‹tBASE_TYPE
  
 IS_FIRST_TIME_TO_EXE
  = 1;
 
-69 
+71 
 p‹tTickTy≥
  
 xLa°Executi⁄Time
  = 125;
 
-74 if–
+76 if–
 IS_FIRST_TIME_TO_EXE
  == 1 )
 
-76 
+78 
 	`xSem≠h‹eTake
 (
 xMySem
@@ -400440,71 +400450,55 @@ xMySem
 p‹tMAX_DELAY
 );
 
-77 
+79 
 IS_FIRST_TIME_TO_EXE
  = 0;
 
-80 
-	`vTaskSu•ídAŒ
-();
-
-81 
-	`vPrötNumbî
-(
-xMyId
-);
-
-82 
-xCuºítTime
- = 
-	`xTaskGëTickCou¡
-();
-
-83 
-	`vPrötNumbî
-(
-xCuºítTime
-);
-
-84 
-	`vTaskResumeAŒ
-();
-
-86  
+88  
 i
  = 0; i < 500; ++ i )
 
-88 
+90 
 	`xMyFun
 ();
 
-91 
-	`vTaskSu•ídAŒ
-();
-
-92 
+98 
 xCuºítTime
  = 
 	`xTaskGëTickCou¡
 ();
 
-93 
+99 if(
+xCuºítTime
+ > 1250000)
+
+103 if(
+xCuºítTime
+ > 
+xLa°Executi⁄Time
+ + 
+xMyPîiod
+)
+
+105 
 	`vPrötNumbî
 (
 xCuºítTime
 );
 
-94 
+106 
+	`vPrötNumbî
+(
+xLa°Executi⁄Time
+);
+
+107 
 	`vPrötNumbî
 ((
 xMyId
- + 10) * 3);
+ + 1) *10);
 
-95 
-	`vTaskResumeAŒ
-();
-
-96 
+110 
 	`vTaskDñayU¡û
 –&
 xLa°Executi⁄Time
@@ -400514,51 +400508,51 @@ xMyPîiod
 p‹tTICK_RATE_MS
  );
 
-98 
+112 
 	}
 }
 
-101 
+115 
 	$maö
 ()
 
-104 
+118 
 	`öô_Àd
 ();
 
-105 
+119 
 	`öô_rs232
 ();
 
-106 
+120 
 	`íabÀ_rs232_öãºu±s
 ();
 
-107 
+121 
 	`íabÀ_rs232
 ();
 
-109 
+123 
 	`vSem≠h‹eInôüli£
 ();
 
-110 
+124 
 	`vP¨amëîsInô
 ();
 
-112 
+126 
 p‹tBASE_TYPE
  
 i
 ;
 
-113  
+127  
 i
  = 0; i < 
 NUMBEROFTASK
 ; ++ i )
 
-115 
+129 
 	`xTaskCª©e
 (
 vTimeTask
@@ -400574,69 +400568,69 @@ xTaskPrio
 xTaskOfH™dÀ
 [i]);
 
-119 
+133 
 	`vTaskSèπScheduÀr
 ();
 
-122 
+136 
 	}
 }
 
-124 
+138 
 	$myTø˚Cª©e
  (){
 
-125 
+139 
 	}
 }
 
-127 
+141 
 	$myTø˚SwôchedIn
  (){
 
-128 
+142 
 	}
 }
 
-130 
+144 
 	$myTø˚SwôchedOut
  (){
 
-131 
+145 
 	}
 }
 
-133 
+147 
 ölöe
  
 	$myTø˚GëTick
 (){
 
-134 
+148 
 	}
 }
 
-136 
+150 
 ölöe
  
 	$myTø˚GëTimeMûli£c⁄d
 (){
 
-138 
+152 
 	}
 }
 
-140 
+154 
 	$vAµliˇti⁄TickHook
 ()
 
-142 
+156 
 p‹tBASE_TYPE
  
 i
 ;
 
-143 
+157 
 p‹tTickTy≥
  
 xCuºítTime
@@ -400644,17 +400638,17 @@ xCuºítTime
 	`xTaskGëTickCou¡
 ();
 
-145 if–
+159 if–
 xCuºítTime
  == 125 )
 
-147  
+161  
 i
  = 0; i < 
 NUMBEROFTASK
 ; ++ i )
 
-149 
+163 
 	`xSem≠h‹eGive
 –
 xSem≠h‹eTabÀ
@@ -400662,7 +400656,7 @@ xSem≠h‹eTabÀ
 i
 ] );
 
-152 
+166 
 	}
 }
 
@@ -401508,7 +401502,7 @@ SVC_H™dÀr
 
 75 
 	#c⁄figUSE_PREEMPTION
- 0
+ 1
 
 	)
 

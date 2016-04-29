@@ -1188,6 +1188,12 @@ signed portBASE_TYPE xAlreadyYielded = pdFALSE;
 					{
 						vTaskIncrementTick();
 						--uxMissedTicks;
+                        // added by wanbo
+                        if (uxMissedTicks > (unsigned portBASE_TYPE) 1<<31)
+                        {
+                            uxMissedTicks = 0;
+                        }
+
 					}
 
 					/* As we have processed some ticks it is appropriate to yield
@@ -1441,6 +1447,7 @@ tskTCB * pxTCB;
 	if( uxSchedulerSuspended == ( unsigned portBASE_TYPE ) pdFALSE )
 	{
 		++xTickCount;
+        //vPrintNumber(xTickCount);
 		if( xTickCount == ( portTickType ) 0U )
 		{
 			xList *pxTemp;
