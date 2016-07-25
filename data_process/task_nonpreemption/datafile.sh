@@ -2,29 +2,31 @@
 
 awk ' 
 BEGIN{
-    maxtime[0]= 9;
-    maxtime[1]= 3;
-    maxtime[2]= 1; 
-    maxtime[3]= 6; 
-    maxtime[4]= 6; 
-    maxtime[5]= 12;
-    maxtime[6]= 8;
-    maxtime[7]= 0.7;
-    maxtime[8]= 1.6;
-    maxtime[9]= 8.9; 
-    maxtime[10]= 2.8; 
-    maxtime[11]= 8; 
-    maxtime[12]= 4; 
+    id = -1;
+    readytime = 0;
+    starttime = 0;
+    responsetime = 0;
+    deadline = 0;
 }
 {
-    if($1<20){
+    if(id == -1 && $1<15){
         id = $1;
         time1 = $2;
+    }else if( $1 == (id+10)*3 ){
+        print id, ($2 - time1)/1000.0, readytime, responsetime, deadline;
+        id = -1;
+        readytime = 0;
+        starttime = 0;
+        responsetime = 0;
+        deadline = 0;
+    }else if( readytime == 0 ){
+        readytime = $1;
+    }else if( starttime == 0 ){
+        starttime = $1;
+    }else if( responsetime == 0 ){
+        responsetime = $1 ;
     }else{
-        time2 = ($2 - time1)/1000000.0
-        if(time2 < maxtime[id]){
-            print id, ($2-time1)/1000000.0;
-        }
+        deadline = $1
     }
 }
 ' datafile.data > datafile.out

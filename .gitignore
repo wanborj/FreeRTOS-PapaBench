@@ -35,6 +35,10 @@
 *.data
 *.out
 *.ave
+*.sh
+*.data1
+*.data2
+*.dem
 
 # cscope files
 cscope.*

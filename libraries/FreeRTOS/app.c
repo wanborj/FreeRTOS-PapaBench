@@ -43,19 +43,19 @@ portBASE_TYPE xTaskPrio[NUMBEROFTASK] =
 
 portTickType xPeriodTable[NUMBEROFTASK] = 
 {
-    100,
-    100,
-    200,
-    200,
-    200,
-    100,
-    200,
-    200,
-    1000,
-    1000,
-    1000,
-    1000,
-    400   
+    25,
+    25,
+    50,
+    50,
+    50,
+    25,
+    50,
+    50,
+    250,
+    250,
+    250,
+    250,
+    100   
 };
 
 

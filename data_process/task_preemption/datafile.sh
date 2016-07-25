@@ -51,7 +51,7 @@ BEGIN{
     else{
         id = $1/3-10;
         if(flag[ id ] == 1){
-            execution_time = ($4-time[id])/1000000.0;
+            execution_time = ($4-time[id])/1000.0;
             #if( execution_time < maxtime[id] ){
                 print id, execution_time, ready[id], $3, $2;
             #}
@@ -77,7 +77,7 @@ BEGIN{
         ave[i]=0.0; 
         total[i]=0.0; 
         max[i]=0.0; 
-        min[i]=1000.0
+        min[i]=100000.0
     } 
 }
 {

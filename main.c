@@ -9,6 +9,8 @@
 #include <string.h>
 #include "app.h"
 
+#define PREEMPTION
+//#define NONPREEMPTION
 
 struct parameter
 {
@@ -85,19 +87,25 @@ void vTimeTask( void * pvParameter )
             xSemaphoreTake(xMySem, portMAX_DELAY);
             IS_FIRST_TIME_TO_EXE = 0;
         }
-
+#ifdef PREEMPTION
         vTaskSuspendAll();
         vPrintNumber(xMyId);
         vPrintNumber( xReadyTime );
         vPrintNumber( xTaskGetTickCount() );
         xTaskResumeAll();
+#endif
 
-        for( i = 0; i < 500; ++ i )
+        #ifdef NONPREEMPTION
+        vPrintNumber(xMyId);
+        vPrintNumber( xReadyTime );
+        vPrintNumber( xTaskGetTickCount() );
+        #endif
+
+        for( i = 0; i < 200; ++ i )
         {
             xMyFun();
         }
 
-        /*
         if(xTaskGetTickCount() > xLastExecutionTime + xMyPeriod)
         {
             //vPrintNumber((xMyId+10)*2);
@@ -105,34 +113,26 @@ void vTimeTask( void * pvParameter )
             vPrintString("miss deadline\n\r");
             miss[xMyId] ++;
         }
-        */
+
         xCount ++;
         xReadyTime = xCount * xMyPeriod;
         xDeadline = xReadyTime ;
 
 
+#ifdef PREEMPTION
         vTaskSuspendAll();
         vPrintNumber((xMyId + 10) * 3);
         vPrintNumber( xDeadline );
         vPrintNumber( xTaskGetTickCount() );
         xTaskResumeAll();
+#endif
+        #ifdef NONPREEMPTION
+        vPrintNumber(xTaskGetTickCount());
+        vPrintNumber( xDeadline );
+        vPrintNumber( (xMyId + 10)* 3 );
+        #endif
       
-        /*
-        if(xTaskGetTickCount() > xSystemDeadline)
-        {
-            vTaskSuspendAll();
-            vPrintString("Time ");
-            send_num(xMyId/10);
-            send_num(xMyId%10);
-            vPrintString(":");
-            vPrintNumber(miss[xMyId]);
-            xTaskResumeAll();
-            xSystemDeadline += 20000;
-            //break;
-        }
-        */
-
-        if(xTaskGetTickCount() > 1000000)
+        if(xTaskGetTickCount() > 100000)
         {
             break;
         }
