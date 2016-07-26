@@ -1,4 +1,4 @@
-cscope 15 $HOME/program/freertos+papabench/lower_freertos+papabench -q 0000018780 0002674536
+cscope 15 $HOME/program/freertos+papabench/lower_freertos+papabench -q 0000018779 0002674557
 	@/home/wanbo/program/freertos+papabench/lower_freertos+papabench/FreeRTOSConfig.h
 
 54 #i‚de‡
@@ -11415,6 +11415,16 @@ UNINIT
 	$∑r£_gps_msg
 ( ) {
 
+100 
+ubx_˛ass
+ = 
+UBX_NAV_ID
+;
+
+101 
+ubx_id
+ = (ubx_id + 1)%0x40;
+
 105 i‡(
 ubx_˛ass
  =
@@ -15939,17 +15949,17 @@ IF_CALIB_MODE_NONE
 
 	)
 
-289 
+291 
 	$£nd_boŸ
 (){
 
-295 
+297 
 	`DOWNLINK_SEND_BOOT
 (&
 vîsi⁄
 );
 
-296 
+298 
 	`DOWNLINK_SEND_RAD_OF_IR
 (&
 e°im©‹_ú
@@ -15963,153 +15973,201 @@ e°im©‹_ød_of_ú
 ú_pôch_√uåÆ
 );
 
-297 
+299 
 boŸ
  = 
 FALSE
 ;
 
-299 
+301 
 	}
 }
 
-300 
+302 
 	$£nd_©tôude
 (){
 
-304 
+306 
 cou¡
 ++;
 
-305 i‡(
+307 i‡(
 cou¡
  == 250) count = 0;
 
-306 i‡(
+308 i‡(
 cou¡
  % 5 == 0)
 
-307 
+309 
 	`PERIODIC_SEND_ATTITUDE
 ();
 
-309 
+311 
 	}
 }
 
-311 
+313 
 	$£nd_adc
 (){
 
-313 { i‡(
+315 { i‡(
 cou¡
  % 5 =1Ë
 	`PERIODIC_SEND_ADC
 ();}
 
-314 
+316 
 	}
 }
 
-315 
+317 
 	$£nd_£âögs
 (){
 
-317 {i‡(
+319 {i‡(
 cou¡
  % 5 =2Ë
 	`PERIODIC_SEND_SETTINGS
 ();}
 
-318 
+320 
 	}
 }
 
-319 
+321 
 	$£nd_desúed
 (){
 
-321 { i‡(
+323 { i‡(
 cou¡
  % 10 =3Ë
 	`PERIODIC_SEND_DESIRED
 ();}
 
-322 
+324 
 	}
 }
 
-323 
+325 
 	$£nd_b©
 (){
 
-325 { i‡(
+327 { i‡(
 cou¡
  % 20 =8Ë
 	`PERIODIC_SEND_BAT
 ();}
 
-326 
+328 
 	}
 }
 
-327 
+329 
 	$£nd_˛imb
 (){
 
-329 { i‡(
+331 { i‡(
 cou¡
  % 20 =18Ë
 	`PERIODIC_SEND_CLIMB_PID
 ();}
 
-330 
+332 
 	}
 }
 
-331 
+333 
 	$£nd_mode
 (){
 
-333 { i‡(
+335 { i‡(
 cou¡
  % 50 =9Ë
 	`PERIODIC_SEND_PPRZ_MODE
 ();}
 
-334 
+336 
 	}
 }
 
-335 
+337 
 	$£nd_debug
 (){
 
-337 { i‡(
+339 { i‡(
 cou¡
  % 50 =29Ë
 	`PERIODIC_SEND_DEBUG
 ();}
 
-338 
+340 
 	}
 }
 
-339 
+341 
 	$£nd_«v_ªf
 (){
 
-341 { i‡(
+343 { i‡(
 cou¡
  % 100 =49Ë
 	`PERIODIC_SEND_NAVIGATION_REF
 ();}
 
-343 
+345 
 	}
 }
 
-348 
+347 
+	$ªp‹tög_èsk
+()
+
+349 
+	`£nd_boŸ
+();
+
+350 
+	`£nd_©tôude
+();
+
+351 
+	`£nd_adc
+();
+
+352 
+	`£nd_£âögs
+();
+
+353 
+	`£nd_desúed
+();
+
+354 
+	`£nd_b©
+();
+
+355 
+	`£nd_˛imb
+();
+
+356 
+	`£nd_mode
+();
+
+357 
+	`£nd_debug
+();
+
+358 
+	`£nd_«v_ªf
+();
+
+359 
+	}
+}
+
+364 
 ölöe
  
 uöt8_t
@@ -16117,7 +16175,7 @@ uöt8_t
 	$öÊight_ˇlib_mode_upd©e
  ( ) {
 
-349 
+365 
 	`ModeUpd©e
 (
 öÊight_ˇlib_mode
@@ -16131,29 +16189,29 @@ ch™√ls
 RADIO_CALIB
 ]));
 
-350 
+366 
 	}
 }
 
-356 
+372 
 	$ødio_c⁄åﬁ_èsk
 ( ) {
 
-357 
+373 
 boﬁ_t
  
 ˇlib_mode_ch™ged
 ;
 
-360 
+376 
 lök_fbw_ª˚ive_vÆid
  = 1;
 
-361 i‡(
+377 i‡(
 lök_fbw_ª˚ive_vÆid
 ) {
 
-362 
+378 
 uöt8_t
  
 mode_ch™ged
@@ -16161,23 +16219,23 @@ mode_ch™ged
 FALSE
 ;
 
-363 
+379 
 	`c›y_‰om_to_fbw
 ();
 
-366 
+382 
 µrz_mode
  = 
 PPRZ_MODE_HOME
 ;
 
-367 
+383 
 mode_ch™ged
  = 
 TRUE
 ;
 
-372 
+388 
 boﬁ_t
  
 µrz_mode_ch™ged
@@ -16185,33 +16243,33 @@ boﬁ_t
 	`µrz_mode_upd©e
 ();
 
-373 
+389 
 mode_ch™ged
  |
 µrz_mode_ch™ged
 ;
 
-374 #ifde‡
+390 #ifde‡
 RADIO_LLS
 
 
-375 
+391 
 mode_ch™ged
  |
 	`ú_e°im_mode_upd©e
 ();
 
-377 #ifde‡
+393 #ifde‡
 RADIO_CALIB
 
 
-378 
+394 
 ˇlib_mode_ch™ged
  = 
 	`öÊight_ˇlib_mode_upd©e
 ();
 
-379 
+395 
 	`öÊight_ˇlib
 (
 ˇlib_mode_ch™ged
@@ -16219,27 +16277,27 @@ RADIO_CALIB
 µrz_mode_ch™ged
 );
 
-380 
+396 
 mode_ch™ged
  |
 ˇlib_mode_ch™ged
 ;
 
-383 
+399 
 mode_ch™ged
  |
 	`mcu1_°©us_upd©e
 ();
 
-385 
+401 
 mode_ch™ged
  = 1;
 
-386 i‡–
+402 i‡–
 mode_ch™ged
  )
 
-392 
+408 
 desúed_rﬁl
  = 
 	`FLOAT_OF_PPRZ
@@ -16251,7 +16309,7 @@ ch™√ls
 RADIO_ROLL
 ], 0., -0.6);
 
-393 
+409 
 desúed_pôch
  = 
 	`FLOAT_OF_PPRZ
@@ -16263,7 +16321,7 @@ ch™√ls
 RADIO_PITCH
 ], 0., 0.5);
 
-399 
+415 
 desúed_gaz
  = 
 ‰om_fbw
@@ -16273,11 +16331,11 @@ ch™√ls
 RADIO_THROTTLE
 ];
 
-400 #ifde‡
+416 #ifde‡
 ANTON_MAGICAL_MISTERY_GAINS
 
 
-401 
+417 
 rﬁl_pgaö
  = 
 ROLL_PGAIN
@@ -16291,7 +16349,7 @@ RADIO_THROTTLE
 MAX_PPRZ
 );
 
-402 
+418 
 pôch_pgaö
  = 
 PITCH_PGAIN
@@ -16305,7 +16363,7 @@ RADIO_THROTTLE
 MAX_PPRZ
 );
 
-407 
+423 
 mcu1_µm_˝t
  = 
 ‰om_fbw
@@ -16313,21 +16371,21 @@ mcu1_µm_˝t
 µm_˝t
 ;
 
-408 
+424 
 vsuµly
  = 
 ‰om_fbw
 .vsupply;
 
-410 
+426 
 	`evíts_upd©e
 ();
 
-415 
+431 
 	`ground_ˇlibøã
 ();
 
-416 i‡(
+432 i‡(
 µrz_mode
  =
 PPRZ_MODE_AUTO2
@@ -16341,49 +16399,49 @@ RADIO_THROTTLE
 GAZ_THRESHOLD_TAKEOFF
 ) {
 
-417 
+433 
 œunch
  = 
 TRUE
 ;
 
-423 
+439 
 	}
 }
 
-428 
+444 
 	$«vig©i⁄_upd©e
 ( ) {
 
-432 
+448 
 œãøl_mode
  = 
 LATERAL_MODE_COURSE
 ;
 
-433 i‡(
+449 i‡(
 µrz_mode
  =
 PPRZ_MODE_HOME
 )
 
-434 
+450 
 	`«v_home
 ();
 
-436 
+452 
 	`«v_upd©e
 ();
 
-437 
+453 
 	}
 }
 
-439 
+455 
 	$£nd_«v_vÆues
 (){
 
-441 
+457 
 	`DOWNLINK_SEND_NAVIGATION
 (&
 «v_block
@@ -16403,15 +16461,15 @@ cour£_pgaö
 di°2_to_home
 );
 
-442 
+458 
 	}
 }
 
-444 
+460 
 	$cour£_run
 (){
 
-446 i‡(
+462 i‡(
 µrz_mode
  =
 PPRZ_MODE_AUTO2
@@ -16419,31 +16477,31 @@ PPRZ_MODE_AUTO2
 PPRZ_MODE_HOME
 )
 
-448 i‡(
+464 i‡(
 œãøl_mode
  >
 LATERAL_MODE_COURSE
 )
 
-449 
+465 
 	`cour£_pid_run
 ();
 
-450 
+466 
 desúed_rﬁl
  = 
 «v_desúed_rﬁl
 ;
 
-453 
+469 
 	}
 }
 
-455 
+471 
 	$Ætôude_c⁄åﬁ_èsk
 ()
 
-458 i‡(
+474 i‡(
 µrz_mode
  =
 PPRZ_MODE_AUTO2
@@ -16451,25 +16509,25 @@ PPRZ_MODE_AUTO2
 PPRZ_MODE_HOME
 ) {
 
-459 i‡(
+475 i‡(
 vîtiˇl_mode
  =
 VERTICAL_MODE_AUTO_ALT
 )
 
-460 
+476 
 	`Ætôude_pid_run
 ();
 
-463 
+479 
 	}
 }
 
-464 
+480 
 	$˛imb_c⁄åﬁ_èsk
 ()
 
-467 i‡(
+483 i‡(
 µrz_mode
  =
 PPRZ_MODE_AUTO2
@@ -16477,29 +16535,29 @@ PPRZ_MODE_AUTO2
 PPRZ_MODE_HOME
 )
 
-469 i‡(
+485 i‡(
 vîtiˇl_mode
  >
 VERTICAL_MODE_AUTO_CLIMB
 )
 
-470 
+486 
 	`˛imb_pid_run
 ();
 
-471 i‡(
+487 i‡(
 vîtiˇl_mode
  =
 VERTICAL_MODE_AUTO_GAZ
 )
 
-472 
+488 
 desúed_gaz
  = 
 «v_desúed_gaz
 ;
 
-473 i‡(
+489 i‡(
 low_b©ãry
  || (!
 e°im©‹_Êight_time
@@ -16507,15 +16565,15 @@ e°im©‹_Êight_time
 œunch
 ))
 
-474 
+490 
 desúed_gaz
  = 0.;
 
-477 
+493 
 	}
 }
 
-478 
+494 
 	#PERIOD
  (256. * 1024. / 
 CLOCK
@@ -16523,39 +16581,39 @@ CLOCK
 
 	)
 
-481 
+497 
 	#LOW_BATTERY_DELAY
  5
 
 	)
 
-503 
+519 
 	#PAPABENCH_SINGLE
 
 
 	)
 
-504 #ifde‡
+520 #ifde‡
 PAPABENCH_SINGLE
 
 
-634 
+650 
 	$°abûißti⁄_èsk
 ()
 
-637 
+653 
 	`ú_upd©e
 ();
 
-638 
+654 
 	`e°im©‹_upd©e_°©e_ö‰¨ed
 ();
 
-639 
+655 
 	`rﬁl_pôch_pid_run
 ();
 
-640 
+656 
 to_fbw
 .
 ch™√ls
@@ -16565,7 +16623,7 @@ RADIO_THROTTLE
 desúed_gaz
 ;
 
-641 
+657 
 to_fbw
 .
 ch™√ls
@@ -16575,11 +16633,11 @@ RADIO_ROLL
 desúed_aûî⁄
 ;
 
-642 #i‚de‡
+658 #i‚de‡
 ANTON_T7
 
 
-643 
+659 
 to_fbw
 .
 ch™√ls
@@ -16589,7 +16647,7 @@ RADIO_PITCH
 desúed_ñev©‹
 ;
 
-647 
+663 
 to_fbw
 .
 ch™√ls
@@ -16603,53 +16661,73 @@ MAX_PPRZ
 e°im©‹_phi
 ));
 
-649 
+665 
 	}
 }
 
-671 
+687 
+	$u£_gps_pos
+()
+
+689 
+	`£nd_gps_pos
+();
+
+690 
+	`£nd_ødIR
+();
+
+691 
+	`£nd_èkeOff
+();
+
+692 
+	}
+}
+
+694 
 	$£nd_gps_pos
 ( ) {
 
-672 
+695 
 gps_msg_ª˚ived
  = 
 FALSE
 ;
 
-673 i‡(
+696 i‡(
 gps_pos_avaûabÀ
 ){
 
-675 
+698 
 	`e°im©‹_upd©e_°©e_gps
 ();
 
-677 
+700 
 	}
 }
 
-679 
+702 
 	$£nd_ødIR
 (){
 
-680 i‡(
+703 i‡(
 gps_pos_avaûabÀ
 ){
 
-683 
+706 
 	}
 }
 
-685 
+708 
 	$£nd_èkeOff
 (){
 
-686 i‡(
+709 i‡(
 gps_pos_avaûabÀ
 ){
 
-687 i‡(!
+710 i‡(!
 e°im©‹_Êight_time
  && (
 e°im©‹_h•ìd_mod
@@ -16657,23 +16735,23 @@ e°im©‹_h•ìd_mod
 MIN_SPEED_FOR_TAKEOFF
 )) {
 
-688 
+711 
 e°im©‹_Êight_time
  = 1;
 
-689 
+712 
 œunch
  = 
 TRUE
 ;
 
-692 
+715 
 gps_pos_avaûabÀ
  = 
 FALSE
 ;
 
-695 
+718 
 	}
 }
 
@@ -93387,6 +93465,10 @@ __˝lu•lus
 	~"«v.h
 "
 
+23 
+	~"adc.h
+"
+
 25 
 xSem≠h‹eH™dÀ
  
@@ -93429,291 +93511,367 @@ check_mega128_vÆues_èsk
 check_Áûß„_èsk
 ();
 
-84 
+83 
 ødio_c⁄åﬁ_èsk
 ();
 
+84 
+u£_gps_pos
+();
+
 85 
-£nd_gps_pos
+«vig©i⁄_upd©e
 ();
 
 86 
-£nd_ødIR
+£nd_«v_vÆues
 ();
 
 87 
-£nd_èkeOff
+cour£_run
+();
+
+88 
+Ætôude_c⁄åﬁ_èsk
 ();
 
 89 
-£nd_boŸ
+˛imb_c⁄åﬁ_èsk
 ();
 
 90 
-£nd_©tôude
-();
-
-91 
-£nd_adc
+ªp‹tög_èsk
 ();
 
 92 
-£nd_£âögs
+timî_öô
 ();
 
 93 
-£nd_desúed
+modem_öô
 ();
 
 94 
-£nd_b©
+adc_öô
 ();
 
 95 
-£nd_˛imb
-();
+adc_buf_ch™√l
+(
+uöt8_t
+ 
+adc_ch™√l
+, 
+adc_buf
+ *
+s
+);
 
 96 
-£nd_mode
+•i_öô
 ();
 
 97 
-£nd_debug
+lök_fbw_öô
 ();
 
 98 
-£nd_«v_ªf
+gps_öô
 ();
 
-100 
-	$vTask_0
+99 
+nva_öô
+();
+
+100 
+ú_öô
+();
+
+101 
+e°im©‹_öô
+();
+
+102 
+fbw_öô
+();
+
+104 
+uöt8_t
+ 
+mode
+ ;
+
+105 
+uöt8_t
+ 
+µrz_mode
+;
+
+107 
+	$vP≠abíchInô
 ()
-
-102 
-	`œ°_ødio_‰om_µm
-();
-
-103 
-	}
-}
-
-105 
-	$vTask_1
-()
-
-107 
-	`to_aut›ûŸ_‰om_œ°_ødio
-();
-
-108 
-	`•i_ª£t
-();
 
 109 
-	}
-}
+mode
+ = 
+MODE_AUTO
+;
 
-111 
-	$vTask_2
-()
+110 
+µrz_mode
+ = 
+PPRZ_MODE_HOME
+;
 
-113 
-	`check_mega128_vÆues_èsk
+111 
+	`timî_öô
 ();
 
-114 
-	}
-}
+112 
+	`modem_öô
+();
 
-116 
-	$vTask_3
-()
+113 
+	`adc_öô
+();
+
+114 #ifde‡
+CTL_BRD_V1_1
+
+
+115 
+	`adc_buf_ch™√l
+(
+uöt8_t
+ 
+adc_ch™√l
+, 
+adc_buf
+ *
+s
+);
+
+117 
+	`•i_öô
+();
 
 118 
-	`£rvo_å™smô
+	`lök_fbw_öô
 ();
 
 119 
-	}
-}
-
-121 
-	$vTask_4
-()
-
-123 
-	`check_Áûß„_èsk
+	`gps_öô
 ();
+
+120 
+	`«v_öô
+();
+
+121 
+	`ú_öô
+();
+
+122 
+	`e°im©‹_öô
+();
+
+123 #ifde‡
+PAPABENCH_SINGLE
+
 
 124 
+	`fbw_öô
+();
+
+126 
 	}
 }
 
-126 
-	$vTask_5
+129 
+	$vTask_0
 ()
 
-128 
-	`ødio_c⁄åﬁ_èsk
+131 
+	`œ°_ødio_‰om_µm
 ();
 
-129 
-	`ú_gaö_ˇlib
-();
-
-130 
+132 
 	}
 }
 
-132 
-	$vTask_6
+134 
+	$vTask_1
 ()
-
-134 
-	`ú_upd©e
-();
-
-135 
-	`e°im©‹_upd©e_°©e_ö‰¨ed
-();
 
 136 
-	`rﬁl_pôch_pid_run
+	`to_aut›ûŸ_‰om_œ°_ødio
 ();
 
 137 
+	`•i_ª£t
+();
+
+138 
 	}
 }
 
-139 
-	$vTask_7
+140 
+	$vTask_2
 ()
-
-141 
-	`lök_fbw_£nd
-();
 
 142 
+	`check_mega128_vÆues_èsk
+();
+
+143 
 	}
 }
 
-144 
-	$vTask_8
+145 
+	$vTask_3
 ()
 
-146 
-	`∑r£_gps_msg
-();
-
 147 
-	`£nd_gps_pos
+	`£rvo_å™smô
 ();
 
 148 
-	`£nd_ødIR
-();
-
-149 
-	`£nd_èkeOff
-();
-
-150 
 	}
 }
 
-152 
-	$vTask_9
+150 
+	$vTask_4
 ()
 
-154 
-	`«v_home
+152 
+	`check_Áûß„_èsk
 ();
 
-155 
-	`«v_upd©e
-();
+153 
+	}
+}
 
-156 
-	`cour£_pid_run
-();
+155 
+	$vTask_5
+()
 
 157 
-	}
-}
-
-159 
-	$vTask_10
-()
-
-161 
-	`Ætôude_pid_run
+	`ødio_c⁄åﬁ_èsk
 ();
 
-162 
+158 
+	`ú_gaö_ˇlib
+();
+
+159 
 	}
 }
 
-164 
-	$vTask_11
+161 
+	$vTask_6
 ()
+
+163 
+	`ú_upd©e
+();
+
+164 
+	`e°im©‹_upd©e_°©e_ö‰¨ed
+();
+
+165 
+	`rﬁl_pôch_pid_run
+();
 
 166 
-	`˛imb_pid_run
-();
-
-167 
 	}
 }
 
-169 
-	$vTask_12
+168 
+	$vTask_7
 ()
 
+170 
+	`lök_fbw_£nd
+();
+
 171 
-	`£nd_boŸ
-();
+	}
+}
 
-172 
-	`£nd_©tôude
-();
-
-173 
-	`£nd_adc
-();
-
-174 
-	`£nd_£âögs
-();
+173 
+	$vTask_8
+()
 
 175 
-	`£nd_desúed
+	`∑r£_gps_msg
 ();
 
 176 
-	`£nd_b©
+	`u£_gps_pos
 ();
 
 177 
-	`£nd_˛imb
-();
-
-178 
-	`£nd_mode
-();
-
-179 
-	`£nd_debug
-();
-
-180 
-	`£nd_«v_ªf
-();
-
-181 
 	}
 }
 
+179 
+	$vTask_9
+()
+
+181 
+	`«vig©i⁄_upd©e
+();
+
+182 
+	`£nd_«v_vÆues
+();
+
 183 
+	`cour£_run
+();
+
+184 
+	}
+}
+
+186 
+	$vTask_10
+()
+
+188 
+	`Ætôude_c⁄åﬁ_èsk
+();
+
+189 
+	}
+}
+
+191 
+	$vTask_11
+()
+
+193 
+	`˛imb_c⁄åﬁ_èsk
+();
+
+194 
+	}
+}
+
+196 
+	$vTask_12
+()
+
+198 
+	`ªp‹tög_èsk
+();
+
+199 
+	}
+}
+
+201 
 pvTaskFunTy≥
  
 	gxTaskTabÀ
@@ -93721,55 +93879,55 @@ pvTaskFunTy≥
 NUMBEROFTASK
 ] =
 
-185 &
+203 &
 vTask_0
 ,
 
-186 &
+204 &
 vTask_1
 ,
 
-187 &
+205 &
 vTask_2
 ,
 
-188 &
+206 &
 vTask_3
 ,
 
-189 &
+207 &
 vTask_4
 ,
 
-190 &
+208 &
 vTask_5
 ,
 
-191 &
+209 &
 vTask_6
 ,
 
-192 &
+210 &
 vTask_7
 ,
 
-193 &
+211 &
 vTask_8
 ,
 
-194 &
+212 &
 vTask_9
 ,
 
-195 &
+213 &
 vTask_10
 ,
 
-196 &
+214 &
 vTask_11
 ,
 
-197 &
+215 &
 vTask_12
 
 
@@ -96533,55 +96691,59 @@ _APP_H
 	tpvTaskFunTy≥
  )();
 
-24 
-	`vTask_0
+23 
+	`vP≠abíchInô
 ();
 
 25 
-	`vTask_1
+	`vTask_0
 ();
 
 26 
-	`vTask_2
+	`vTask_1
 ();
 
 27 
-	`vTask_3
+	`vTask_2
 ();
 
 28 
-	`vTask_4
+	`vTask_3
 ();
 
 29 
-	`vTask_5
+	`vTask_4
 ();
 
 30 
-	`vTask_6
+	`vTask_5
 ();
 
 31 
-	`vTask_7
+	`vTask_6
 ();
 
 32 
-	`vTask_8
+	`vTask_7
 ();
 
 33 
-	`vTask_9
+	`vTask_8
 ();
 
 34 
-	`vTask_10
+	`vTask_9
 ();
 
 35 
-	`vTask_11
+	`vTask_10
 ();
 
 36 
+	`vTask_11
+();
+
+37 
 	`vTask_12
 ();
 
@@ -400070,71 +400232,69 @@ RESET
 	~"°m32f10x.h
 "
 
-5 
-	~"FªeRTOS.h
+3 
+	~"°m32_p103.h
 "
 
 6 
-	~"èsk.h
+	~"FªeRTOS.h
 "
 
 7 
-	~"queue.h
+	~"èsk.h
 "
 
 8 
-	~"£mphr.h
+	~"queue.h
 "
 
 9 
+	~"£mphr.h
+"
+
+10 
 	~<°rög.h
 >
 
-10 
+11 
 	~"≠p.h
 "
 
-12 
+13 
 	#PREEMPTION
 
 
 	)
 
-15 
+16 
 	s∑ømëî
 
 
-17 
+18 
 p‹tBASE_TYPE
  
 	mxMyId
 ;
 
-18 
+19 
 pvTaskFunTy≥
  
 	mxMyFun
 ;
 
-19 
+20 
 p‹tTickTy≥
  
 	mxPîiod
 ;
 
-20 
-xSem≠h‹eH™dÀ
- 
-	mxMySem
-;
-
-22 }
+21 }
 	g∑ømëîs
 [
 NUMBEROFTASK
 ];
 
-24 
+23 
 xTaskH™dÀ
  
 	gxTaskOfH™dÀ
@@ -400142,17 +400302,17 @@ xTaskH™dÀ
 NUMBEROFTASK
 ];
 
-26 
+25 
 vTaskSu•ídAŒ
 ();
 
-27 sig√d 
+26 sig√d 
 p‹tBASE_TYPE
  
 xTaskResumeAŒ
 ();
 
-28 
+27 
 p‹tBASE_TYPE
  
 xTaskPrio
@@ -400160,7 +400320,7 @@ xTaskPrio
 NUMBEROFTASK
 ];
 
-31 
+30 
 p‹tTickTy≥
  
 xPîiodTabÀ
@@ -400168,7 +400328,7 @@ xPîiodTabÀ
 NUMBEROFTASK
 ];
 
-32 
+31 
 pvTaskFunTy≥
  
 xTaskTabÀ
@@ -400176,7 +400336,7 @@ xTaskTabÀ
 NUMBEROFTASK
 ];
 
-33 
+32 
 xSem≠h‹eH™dÀ
  
 xSem≠h‹eTabÀ
@@ -400184,13 +400344,13 @@ xSem≠h‹eTabÀ
 NUMBEROFTASK
 ];
 
-34 * 
+33 * 
 pcNameOfTask
 [
 NUMBEROFTASK
 ];
 
-36 
+35 
 p‹tBASE_TYPE
  
 	gmiss
@@ -400199,7 +400359,7 @@ NUMBEROFTASK
 ];
 
 38 
-	$vSem≠h‹eInôüli£
+	$vP¨amëîsInô
 ()
 
 40 
@@ -400208,51 +400368,13 @@ p‹tBASE_TYPE
 i
 ;
 
-42  
+41  
 i
  = 0; i < 
 NUMBEROFTASK
 ; ++ i )
 
-44 
-	`vSem≠h‹eCª©eBö¨y
-(
-xSem≠h‹eTabÀ
-[
-i
-]);
-
-46 
-	`xSem≠h‹eTake
-(
-xSem≠h‹eTabÀ
-[
-i
-], 
-p‹tMAX_DELAY
-);
-
-48 
-	}
-}
-
-50 
-	$vP¨amëîsInô
-()
-
-52 
-p‹tBASE_TYPE
- 
-i
-;
-
-53  
-i
- = 0; i < 
-NUMBEROFTASK
-; ++ i )
-
-55 
+43 
 ∑ømëîs
 [
 i
@@ -400260,7 +400382,7 @@ i
 xMyId
  = i;
 
-56 
+44 
 ∑ømëîs
 [
 i
@@ -400270,7 +400392,7 @@ xMyFun
 xTaskTabÀ
 [i];
 
-57 
+45 
 ∑ømëîs
 [
 i
@@ -400280,33 +400402,23 @@ xPîiod
 xPîiodTabÀ
 [i];
 
-58 
-∑ømëîs
-[
-i
-].
-xMySem
- = 
-xSem≠h‹eTabÀ
-[i];
-
-59 
+46 
 miss
 [
 i
 ] = 0;
 
-61 
+48 
 	}
 }
 
-63 
+50 
 	$vTimeTask
 –* 
 pvP¨amëî
  )
 
-65 
+52 
 ∑ømëî
  *
 xMyP¨amëî
@@ -400314,7 +400426,7 @@ xMyP¨amëî
 pvP¨amëî
 ;
 
-66 
+53 
 p‹tBASE_TYPE
  
 xMyId
@@ -400322,7 +400434,7 @@ xMyId
 xMyP¨amëî
 ->xMyId;
 
-67 
+54 
 pvTaskFunTy≥
  
 xMyFun
@@ -400330,7 +400442,7 @@ xMyFun
 xMyP¨amëî
 ->xMyFun;
 
-68 
+55 
 p‹tTickTy≥
  
 xMyPîiod
@@ -400340,53 +400452,31 @@ xMyP¨amëî
 xPîiod
 ;
 
-69 
-xSem≠h‹eH™dÀ
- 
-xMySem
- = 
-xMyP¨amëî
-->xMySem;
-
-71 
+57 
 p‹tBASE_TYPE
  
 i
 ;
 
-72 
+58 
 p‹tTickTy≥
  
 xCuºítTime
 ;
 
-73 
-p‹tBASE_TYPE
- 
-IS_FIRST_TIME_TO_EXE
- = 1;
-
-76 
+61 
 p‹tTickTy≥
  
 xLa°Executi⁄Time
- = 
-xMyPîiod
- ;
+ = 0;
 
-77 
-p‹tTickTy≥
- 
-xSy°emDódlöe
- = 20000;
-
-79 
+63 
 p‹tBASE_TYPE
  
 xCou¡
  = 1;
 
-80 
+64 
 p‹tTickTy≥
  
 xRódyTime
@@ -400396,89 +400486,73 @@ xCou¡
 xMyPîiod
 ;
 
-81 
+65 
 p‹tTickTy≥
  
 xDódlöe
  ;
 
-85 if–
-IS_FIRST_TIME_TO_EXE
- == 1 )
-
-87 
-	`xSem≠h‹eTake
-(
-xMySem
-, 
-p‹tMAX_DELAY
-);
-
-88 
-IS_FIRST_TIME_TO_EXE
- = 0;
-
-90 #ifde‡
+69 #ifde‡
 PREEMPTION
 
 
-91 
+70 
 	`vTaskSu•ídAŒ
 ();
 
-92 
+71 
 	`vPrötNumbî
 (
 xMyId
 );
 
-93 
+72 
 	`vPrötNumbî
 –
 xRódyTime
  );
 
-94 
+73 
 	`vPrötNumbî
 –
 	`xTaskGëTickCou¡
 () );
 
-95 
+74 
 	`xTaskResumeAŒ
 ();
 
-98 #ifde‡
+77 #ifde‡
 NONPREEMPTION
 
 
-99 
+78 
 	`vPrötNumbî
 (
 xMyId
 );
 
-100 
+79 
 	`vPrötNumbî
 –
 xRódyTime
  );
 
-101 
+80 
 	`vPrötNumbî
 –
 	`xTaskGëTickCou¡
 () );
 
-104  
+83  
 i
  = 0; i < 200; ++ i )
 
-106 
+85 
 	`xMyFun
 ();
 
-109 if(
+88 if(
 	`xTaskGëTickCou¡
 (Ë> 
 xLa°Executi⁄Time
@@ -400486,27 +400560,27 @@ xLa°Executi⁄Time
 xMyPîiod
 )
 
-112 
+91 
 	`vPrötNumbî
 (
 xMyId
 );
 
-113 
+92 
 	`vPrötSåög
 ("miss deadline\n\r");
 
-114 
+93 
 miss
 [
 xMyId
 ] ++;
 
-117 
+96 
 xCou¡
  ++;
 
-118 
+97 
 xRódyTime
  = 
 xCou¡
@@ -400514,69 +400588,65 @@ xCou¡
 xMyPîiod
 ;
 
-119 
+98 
 xDódlöe
  = 
 xRódyTime
  ;
 
-122 #ifde‡
+101 #ifde‡
 PREEMPTION
 
 
-123 
+102 
 	`vTaskSu•ídAŒ
 ();
 
-124 
+103 
 	`vPrötNumbî
 ((
 xMyId
  + 10) * 3);
 
-125 
+104 
 	`vPrötNumbî
 –
 xDódlöe
  );
 
-126 
+105 
 	`vPrötNumbî
 –
 	`xTaskGëTickCou¡
 () );
 
-127 
+106 
 	`xTaskResumeAŒ
 ();
 
-129 #ifde‡
+108 #ifde‡
 NONPREEMPTION
 
 
-130 
+109 
 	`vPrötNumbî
 (
 	`xTaskGëTickCou¡
 ());
 
-131 
+110 
 	`vPrötNumbî
 –
 xDódlöe
  );
 
-132 
+111 
 	`vPrötNumbî
 –(
 xMyId
  + 10)* 3 );
 
-135 if(
-	`xTaskGëTickCou¡
-() > 100000)
-
-140 
+114 
 	`vTaskDñayU¡û
 –&
 xLa°Executi⁄Time
@@ -400586,51 +400656,53 @@ xMyPîiod
 p‹tTICK_RATE_MS
  );
 
-142 
+116 
 	}
 }
 
-145 
+119 
 	$maö
 ()
 
-148 
+122 
 	`öô_Àd
 ();
 
-149 
+123 
 	`öô_rs232
 ();
 
-150 
+124 
 	`íabÀ_rs232_öãºu±s
 ();
 
-151 
+125 
 	`íabÀ_rs232
 ();
 
-153 
-	`vSem≠h‹eInôüli£
-();
-
-154 
+127 
 	`vP¨amëîsInô
 ();
 
-156 
-p‹tBASE_TYPE
- 
+128 
+	`vP≠abíchInô
+();
+
+130 
 i
 ;
 
-157  
+131  
 i
  = 0; i < 
 NUMBEROFTASK
 ; ++ i )
 
-159 
+133 if(
+i
+ == 0 || i == 1 || i == 5)
+
+137 
 	`xTaskCª©e
 (
 vTimeTask
@@ -400646,103 +400718,63 @@ xTaskPrio
 xTaskOfH™dÀ
 [i]);
 
-163 
+141 
 	`vTaskSèπScheduÀr
 ();
 
-166 
+144 
 	}
 }
 
-168 
+146 
 	$myTø˚Cª©e
  (){
 
-169 
+147 
 	}
 }
 
-171 
+149 
 	$myTø˚SwôchedIn
  (){
 
-172 
+150 
 	}
 }
 
-174 
+152 
 	$myTø˚SwôchedOut
  (){
 
-175 
+153 
 	}
 }
 
-177 
+155 
 ölöe
  
 	$myTø˚GëTick
 (){
 
-178 
+156 
 	}
 }
 
-180 
+158 
 ölöe
  
 	$myTø˚GëTimeMûli£c⁄d
 (){
 
-182 
+160 
 	}
 }
 
-184 
+162 
 	$vAµliˇti⁄TickHook
 ()
 
-186 
-p‹tBASE_TYPE
- 
-i
-;
-
-187 
-p‹tTickTy≥
- 
-xCuºítTime
- = 
-	`xTaskGëTickCou¡
-();
-
-189 if–
-xCuºítTime
- > 0 && xCurrentTime <1001 )
-
-191  
-i
- = 0; i < 
-NUMBEROFTASK
-; ++ i )
-
-193 if–
-xCuºítTime
- =
-xPîiodTabÀ
-[
-i
-] )
-
-194 
-	`xSem≠h‹eGive
-–
-xSem≠h‹eTabÀ
-[
-i
-] );
-
-197 
+165 
 	}
 }
 

@@ -225,7 +225,7 @@ void check_failsafe_task(void)
 {
 	//vPrintString("S_9 check_failsafe_task start! \n\r"); //SunnyBeike
     //modified by wanbo
-    //if ((mode == MODE_MANUAL && !radio_ok) || (mode == MODE_AUTO && !mega128_ok)) 
+    if ((mode == MODE_MANUAL && !radio_ok) || (mode == MODE_AUTO && !mega128_ok)) 
     {
       servo_set(failsafe);
     }
