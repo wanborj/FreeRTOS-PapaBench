@@ -58,7 +58,7 @@ void vTimeTask( void * pvParameter )
     portTickType xCurrentTime;
     
     // used for periodic task
-    portTickType xLastExecutionTime = xMyPeriod ; 
+    portTickType xLastExecutionTime = 0; 
 
     portBASE_TYPE xCount = 1;
     portTickType xReadyTime = xCount * xMyPeriod;
@@ -132,7 +132,7 @@ int main()
     {
         if(i == 0 || i == 1 || i == 5)
         {
-            continue;
+            //continue;
         }
         xTaskCreate(vTimeTask, pcNameOfTask[i],  256, (void *) &parameters[i], xTaskPrio[i], &xTaskOfHandle[i]);
     }

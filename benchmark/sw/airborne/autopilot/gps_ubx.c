@@ -96,10 +96,10 @@ void gps_init( void ) {
 void parse_gps_msg( void ) {
   //vPrintString("S_16 receive_gps_data_task start!\n\r");
     //added by SunnyBeike
-    /*
-    ubx_class = 1;
+    
+    ubx_class = UBX_NAV_ID; 
     ubx_id = (ubx_id + 1)%0x40;
-    */
+    
     //end
 
   if (ubx_class == UBX_NAV_ID) {
