@@ -20,6 +20,7 @@
 #define NUMBEROFTASK 13
 
 typedef void( * pvTaskFunType )(void);
+void vPapabenchInit();
 
 void vTask_0();
 void vTask_1();

@@ -1,5 +1,6 @@
 #define USE_STDPERIPH_DRIVER
 #include "stm32f10x.h"
+#include "stm32_p103.h"
 
 /* Scheduler includes. */
 #include "FreeRTOS.h"
@@ -17,8 +18,6 @@ struct parameter
     portBASE_TYPE xMyId;
     pvTaskFunType xMyFun;
     portTickType xPeriod;
-    xSemaphoreHandle xMySem;
-
 }parameters[NUMBEROFTASK];
 
 xTaskHandle xTaskOfHandle[NUMBEROFTASK];
@@ -35,17 +34,6 @@ extern char * pcNameOfTask[NUMBEROFTASK];
 
 portBASE_TYPE miss[NUMBEROFTASK];
 
-void vSemaphoreInitialise()
-{
-    portBASE_TYPE i;
-
-    for( i = 0; i < NUMBEROFTASK; ++ i  )
-    {
-        vSemaphoreCreateBinary(xSemaphoreTable[i]);
-        /* when created, it is initialised to 1. So, we take it away.*/
-        xSemaphoreTake(xSemaphoreTable[i], portMAX_DELAY);
-    }
-}
 
 void vParametersInit()
 {
@@ -55,7 +43,6 @@ void vParametersInit()
         parameters[i].xMyId = i;
         parameters[i].xMyFun = xTaskTable[i];
         parameters[i].xPeriod = xPeriodTable[i];
-        parameters[i].xMySem = xSemaphoreTable[i];
         miss[i] = 0;
     }
 }
@@ -66,27 +53,19 @@ void vTimeTask( void * pvParameter )
     portBASE_TYPE xMyId = xMyParameter->xMyId;
     pvTaskFunType xMyFun = xMyParameter->xMyFun;
     portTickType xMyPeriod = xMyParameter->xPeriod;
-    xSemaphoreHandle xMySem = xMyParameter->xMySem;
 
     portBASE_TYPE i;
     portTickType xCurrentTime;
-    portBASE_TYPE IS_FIRST_TIME_TO_EXE = 1;
     
     // used for periodic task
     portTickType xLastExecutionTime = xMyPeriod ; 
-    portTickType xSystemDeadline = 20000;
 
     portBASE_TYPE xCount = 1;
     portTickType xReadyTime = xCount * xMyPeriod;
     portTickType xDeadline ;
     while(1)
     {
-        // all the task start to execute from 100 ms.
-        if( IS_FIRST_TIME_TO_EXE == 1 )
-        {
-            xSemaphoreTake(xMySem, portMAX_DELAY);
-            IS_FIRST_TIME_TO_EXE = 0;
-        }
+
 #ifdef PREEMPTION
         vTaskSuspendAll();
         vPrintNumber(xMyId);
@@ -132,11 +111,6 @@ void vTimeTask( void * pvParameter )
         vPrintNumber( (xMyId + 10)* 3 );
         #endif
       
-        if(xTaskGetTickCount() > 100000)
-        {
-            break;
-        }
-
         vTaskDelayUntil( &xLastExecutionTime, xMyPeriod / portTICK_RATE_MS );
     }
 }
@@ -150,12 +124,16 @@ int main()
 	enable_rs232_interrupts();
 	enable_rs232();
 
-    vSemaphoreInitialise();
     vParametersInit();
+    vPapabenchInit();
 
-    portBASE_TYPE i;
+    int i;
     for( i = 0; i < NUMBEROFTASK; ++ i )
     {
+        if(i == 0 || i == 1 || i == 5)
+        {
+            continue;
+        }
         xTaskCreate(vTimeTask, pcNameOfTask[i],  256, (void *) &parameters[i], xTaskPrio[i], &xTaskOfHandle[i]);
     }
 
@@ -183,15 +161,5 @@ inline unsigned long myTraceGetTimeMillisecond(){
 
 void vApplicationTickHook()
 {
-    portBASE_TYPE i;
-    portTickType xCurrentTime = xTaskGetTickCount();
-    
-    if( xCurrentTime > 0 && xCurrentTime <1001 )
-    {
-        for( i = 0; i < NUMBEROFTASK; ++ i )
-        {
-            if( xCurrentTime == xPeriodTable[i] )
-            xSemaphoreGive( xSemaphoreTable[i] );
-        }
-    }
+
 }

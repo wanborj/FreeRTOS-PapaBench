@@ -286,6 +286,8 @@ extern const int32_t utm_north0;
  * Called at 20Hz.
  */
 
+
+
 void send_boot(void){
   /** initialisation phase during boot */
   //vPrintString("S_13 reporting_task start!\n\r");
@@ -340,6 +342,20 @@ void send_nav_ref(void){  //10000ms
   //if(!boot)
   { if (count % 100 == 49) PERIODIC_SEND_NAVIGATION_REF();}
   //vPrintString("S_13 reporting_task end!\n\r");
+}
+
+void reporting_task()
+{
+    send_boot();
+    send_attitude();
+    send_adc();
+    send_settings();
+    send_desired();
+    send_bat();
+    send_climb();
+    send_mode();
+    send_debug();
+    send_nav_ref();
 }
 
 /** \fn inline uint8_t inflight_calib_mode_update ( void )
@@ -668,6 +684,13 @@ void stabilisation_task(void)
  * launch to true (which is not set in non auto launch. Then call
  * \a DOWNLINK_SEND_TAKEOFF
  */
+void use_gps_pos()
+{
+    send_gps_pos();
+    send_radIR();
+    send_takeOff();
+}
+
 void send_gps_pos( void ) {
   gps_msg_received = FALSE;
   if (gps_pos_available){

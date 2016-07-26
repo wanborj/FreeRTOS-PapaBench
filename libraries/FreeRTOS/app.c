@@ -10,17 +10,17 @@
 #define USE_STDPERIPH_DRIVER
 
  /* the include file of PapaBench */
- #include "ppm.h"
- #include "servo.h"
- #include "spi_fbw.h"
- #include "infrared.h"
- #include "estimator.h"
- #include "pid.h"
- #include "link_fbw.h"
- #include "gps.h"
- #include "autopilot.h"
- #include "nav.h"
- 
+#include "ppm.h"
+#include "servo.h"
+#include "spi_fbw.h"
+#include "infrared.h"
+#include "estimator.h"
+#include "pid.h"
+#include "link_fbw.h"
+#include "gps.h"
+#include "autopilot.h"
+#include "nav.h"
+#include "adc.h" 
  
 xSemaphoreHandle xSemaphoreTable[NUMBEROFTASK];
 
@@ -80,22 +80,51 @@ char * pcNameOfTask[NUMBEROFTASK] =
 extern void to_autopilot_from_last_radio();
 extern void check_mega128_values_task();
 extern void check_failsafe_task();
-
 extern void radio_control_task(); 
-extern void send_gps_pos();
-extern void send_radIR();
-extern void send_takeOff();
+extern void use_gps_pos();
+extern void navigation_update();
+extern void send_nav_values();
+extern void course_run();
+extern void altitude_control_task();
+extern void climb_control_task();
+extern void reporting_task();
 
-extern void  send_boot();
-extern void  send_attitude();
-extern void  send_adc();
-extern void  send_settings();
-extern void  send_desired();
-extern void  send_bat();
-extern void  send_climb();
-extern void  send_mode();
-extern void  send_debug();
-extern void  send_nav_ref();
+extern void timer_init();
+extern void modem_init();
+extern void adc_init();
+extern void adc_buf_channel(uint8_t adc_channel, struct adc_buf *s);
+extern void spi_init();
+extern void link_fbw_init();
+extern void gps_init();
+extern void nva_init();
+extern void ir_init();
+extern void estimator_init();
+extern void fbw_init();
+
+extern uint8_t mode ;
+extern uint8_t pprz_mode;
+
+void vPapabenchInit()
+{
+    mode = MODE_AUTO;
+    pprz_mode = PPRZ_MODE_HOME;
+    timer_init();
+    modem_init();
+    adc_init();
+#ifdef CTL_BRD_V1_1
+    adc_buf_channel(uint8_t adc_channel, struct adc_buf *s);
+#endif 
+    spi_init();
+    link_fbw_init();
+    gps_init();
+    nav_init();
+    ir_init();
+    estimator_init();
+#ifdef PAPABENCH_SINGLE
+    fbw_init();
+#endif
+}
+
 
 void vTask_0()
 {
@@ -144,40 +173,29 @@ void vTask_7()
 void vTask_8()
 {
     parse_gps_msg();
-    send_gps_pos();
-    send_radIR();
-    send_takeOff();
+    use_gps_pos();
 }
 
 void vTask_9()
 {
-    nav_home();
-    nav_update();
-    course_pid_run();
+    navigation_update();
+    send_nav_values();
+    course_run();
 }
 
 void vTask_10()
 {
-    altitude_pid_run();
+    altitude_control_task();
 }
 
 void vTask_11()
 {
-    climb_pid_run();
+    climb_control_task();
 }
 
 void vTask_12()
 {
-    send_boot();
-    send_attitude();
-    send_adc();
-    send_settings();
-    send_desired();
-    send_bat();
-    send_climb();
-    send_mode();
-    send_debug();
-    send_nav_ref();
+    reporting_task();
 }
 
 pvTaskFunType xTaskTable[NUMBEROFTASK] =
