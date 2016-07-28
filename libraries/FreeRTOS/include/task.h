@@ -283,6 +283,11 @@ typedef struct xTASK_PARAMTERS
  */
 #define xTaskCreate( pvTaskCode, pcName, usStackDepth, pvParameters, uxPriority, pxCreatedTask ) xTaskGenericCreate( ( pvTaskCode ), ( pcName ), ( usStackDepth ), ( pvParameters ), ( uxPriority ), ( pxCreatedTask ), ( NULL ), ( NULL ) )
 
+
+
+#ifdef configUSE_EDF_SCHEDULING
+portBASE_TYPE xTaskPeriodicCreate( pdTASK_CODE pvTaskCode, const signed portCHAR * const pcName , unsigned portSHORT usStackDepth, void * pvParameters, unsigned portBASE_TYPE uxPriority , xTaskHandle * pxCreatedTask, portTickType Deadline);
+#endif
 /**
  * task. h
  *<pre>
@@ -1325,6 +1330,13 @@ unsigned portBASE_TYPE uxTaskGetTaskNumber( xTaskHandle xTask );
  * ucHandle.
  */
 void vTaskSetTaskNumber( xTaskHandle xTask, unsigned portBASE_TYPE uxHandle );
+
+
+#ifdef configUSE_EDF_SCHEDULING
+
+void vSetTaskDeadline( portTickType Deadline);
+
+#endif
 
 
 #ifdef __cplusplus

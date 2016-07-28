@@ -83,6 +83,9 @@ void vListInitialise( xList *pxList )
 	/* The list end value is the highest possible value in the list to
 	ensure it remains at the end of the list. */
 	pxList->xListEnd.xItemValue = portMAX_DELAY;
+#ifdef configUSE_EDF_SCHEDULING
+    pxList->xListEnd.xDeadline = portMAX_DELAY;
+#endif
 
 	/* The list end next and previous pointers point to itself so we know
 	when the list is empty. */

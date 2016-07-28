@@ -237,7 +237,8 @@ void check_mega128_values_task(void)
 // modified by wanbo
      //if ( !SpiIsSelected() && spi_was_interrupted ) 
      {
-         if (mega128_receive_valid)
+         
+        // if (mega128_receive_valid)
          { 
              time_since_last_mega128 = 0;
              mega128_ok = TRUE;

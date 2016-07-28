@@ -105,6 +105,11 @@ extern "C" {
 struct xLIST_ITEM
 {
 	portTickType xItemValue;				/*< The value being listed.  In most cases this is used to sort the list in descending order. */
+#if defined configUSE_EDF_SCHEDULING || defined configUSE_LSF_SCHEDULING
+    portTickType xDeadline;
+    portTickType xRemainTime;
+    portTickType xLastStartTime;
+#endif
 	volatile struct xLIST_ITEM * pxNext;	/*< Pointer to the next xListItem in the list. */
 	volatile struct xLIST_ITEM * pxPrevious;/*< Pointer to the previous xListItem in the list. */
 	void * pvOwner;							/*< Pointer to the object (normally a TCB) that contains the list item.  There is therefore a two way link between the object containing the list item and the list item itself. */
@@ -115,6 +120,11 @@ typedef struct xLIST_ITEM xListItem;		/* For some reason lint wants this as two 
 struct xMINI_LIST_ITEM
 {
 	portTickType xItemValue;
+#if defined configUSE_EDF_SCHEDULING || defined configUSE_LSF_SCHEDULING
+    portTickType xDeadline;
+    portTickType xRemainTime;
+    portTickType xLastStartTime;
+#endif
 	volatile struct xLIST_ITEM *pxNext;
 	volatile struct xLIST_ITEM *pxPrevious;
 };
@@ -180,6 +190,13 @@ typedef struct xLIST
  * Access macro to return the number of items in the list.
  */
 #define listCURRENT_LIST_LENGTH( pxList )		( ( pxList )->uxNumberOfItems )
+
+#ifdef configUSE_EDF_SCHEDULING
+
+#define listSET_LIST_ITEM_DEADLINE( pxListItem, xDeadline )  (( pxListItem )->xDeadline = ( xDeadline ))
+#define listGET_LIST_ITEM_DEADLINE( pxListItem ) ( (pxListItem)-> xDeadline )
+
+#endif
 
 /*
  * Access function to obtain the owner of the next entry in a list.

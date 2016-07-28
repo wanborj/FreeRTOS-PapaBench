@@ -24,6 +24,26 @@
  
 xSemaphoreHandle xSemaphoreTable[NUMBEROFTASK];
 
+
+
+#if (defined configUSE_LSF_SCHEDULING) || (defined configUSE_EDF_SCHEDULING)
+portBASE_TYPE xTaskPrio[NUMBEROFTASK] = 
+{
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+};
+#else
 portBASE_TYPE xTaskPrio[NUMBEROFTASK] = 
 {
     5,
@@ -40,6 +60,7 @@ portBASE_TYPE xTaskPrio[NUMBEROFTASK] =
     2,
     3
 };
+#endif
 
 portTickType xPeriodTable[NUMBEROFTASK] = 
 {

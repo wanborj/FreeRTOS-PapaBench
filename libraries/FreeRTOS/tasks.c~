@@ -1603,8 +1603,8 @@ tskTCB * pxTCB;
 void vTaskSwitchContext( void )
 {
     #ifdef configUSE_EDF_SCHEDULING
-    portBASE_TYPE xLen, i;
-    tskTCB * pxNextTask;
+    portBASE_TYPE xLen, i, count;
+    tskTCB * pxNextTask, * pxFinalTask;
     #endif
 	if( uxSchedulerSuspended != ( unsigned portBASE_TYPE ) pdFALSE )
 	{
@@ -1642,13 +1642,12 @@ void vTaskSwitchContext( void )
         #ifdef configUSE_EDF_SCHEDULING
         if( (xLen = listCURRENT_LIST_LENGTH( &(pxReadyTasksLists[1]) )) > 0 )
         {
-            vPrintString(" the Length of ready list is: ");
-            vPrintNumber( xLen );
-            // if current task dosen't belong to the ready list, then chose the first task with smallest deadline
-            if( pxCurrentTCB->xGenericListItem.pvContainer != &pxReadyTasksLists[1])
+            count = 0;
+            // if current task is idle
+            if( pxCurrentTCB == xIdleTaskHandle )
             {
                 listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[1] ) );
-                for( i = 0; i< xLen ; ++i )
+                for( i = count; i< xLen ; ++i )
                 {
                     // find the next one after current TCB
                     listGET_OWNER_OF_NEXT_ENTRY( pxNextTask, &( pxReadyTasksLists[1] ) );
@@ -1658,7 +1657,6 @@ void vTaskSwitchContext( void )
                         pxCurrentTCB = pxNextTask;
                     }
                 }
-                vPrintString("context switch from idle task\n\r");
             }
             else  // round-robin for tasks with same deadline
             {
@@ -1689,14 +1687,13 @@ void vTaskSwitchContext( void )
                                 listGET_LIST_ITEM_DEADLINE( &pxNextTask->xGenericListItem ))
                         {
                             pxCurrentTCB = pxNextTask;    
-                            vPrintString(" find the next task with round-robin\n\r");
                             break;
                         }
                     }
                 }
-
-                // else schedule current task to execute continually
             }
+
+
         }
         else
         {

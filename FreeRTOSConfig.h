@@ -72,10 +72,12 @@
  * See http://www.freertos.org/a00110.html.
  *----------------------------------------------------------*/
 
+//#define configUSE_EDF_SCHEDULING
+#define configUSE_LSF_SCHEDULING
 #define configUSE_PREEMPTION		0
 #define configUSE_IDLE_HOOK			0
 #define configUSE_TICK_HOOK			1
-#define configCPU_CLOCK_HZ			( ( unsigned long ) 72000000*3 )	
+#define configCPU_CLOCK_HZ			( ( unsigned long ) 72000000 )	
 #define configTICK_RATE_HZ			( ( portTickType ) 1000 )
 #define configMAX_PRIORITIES		( ( unsigned portBASE_TYPE ) 20 )
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 128 )

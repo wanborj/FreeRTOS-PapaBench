@@ -10,8 +10,8 @@
 #include <string.h>
 #include "app.h"
 
-#define PREEMPTION
-//#define NONPREEMPTION
+//#define PREEMPTION
+#define NONPREEMPTION
 
 struct parameter
 {
@@ -60,9 +60,8 @@ void vTimeTask( void * pvParameter )
     // used for periodic task
     portTickType xLastExecutionTime = 0; 
 
-    portBASE_TYPE xCount = 1;
-    portTickType xReadyTime = xCount * xMyPeriod;
-    portTickType xDeadline ;
+    portTickType xReadyTime = 0;
+    portTickType xDeadline = xMyPeriod ;
     while(1)
     {
 
@@ -80,22 +79,20 @@ void vTimeTask( void * pvParameter )
         vPrintNumber( xTaskGetTickCount() );
         #endif
 
-        for( i = 0; i < 200; ++ i )
+        for( i = 0; i < 20; ++ i )
         {
             xMyFun();
         }
 
-        if(xTaskGetTickCount() > xLastExecutionTime + xMyPeriod)
+        if(xTaskGetTickCount() > xDeadline)
         {
             //vPrintNumber((xMyId+10)*2);
-            vPrintNumber(xMyId);
             vPrintString("miss deadline\n\r");
             miss[xMyId] ++;
         }
 
-        xCount ++;
-        xReadyTime = xCount * xMyPeriod;
-        xDeadline = xReadyTime ;
+        xReadyTime += xMyPeriod;
+        xDeadline += xMyPeriod;
 
 
 #ifdef PREEMPTION
@@ -111,7 +108,11 @@ void vTimeTask( void * pvParameter )
         vPrintNumber( (xMyId + 10)* 3 );
         #endif
       
+#ifdef configUSE_EDF_SCHEDULING
+        vSetTaskDeadline( xDeadline );
+#endif
         vTaskDelayUntil( &xLastExecutionTime, xMyPeriod / portTICK_RATE_MS );
+        //vTaskDelay( xMyPeriod / portTICK_RATE_MS );
     }
 }
 
@@ -134,7 +135,11 @@ int main()
         {
             //continue;
         }
-        xTaskCreate(vTimeTask, pcNameOfTask[i],  256, (void *) &parameters[i], xTaskPrio[i], &xTaskOfHandle[i]);
+#ifdef configUSE_EDF_SCHEDULING
+        xTaskPeriodicCreate(vTimeTask, pcNameOfTask[i],  256, (void *) &parameters[i], xTaskPrio[i], &xTaskOfHandle[i], parameters[i].xPeriod);
+#else
+        xTaskCreate( vTimeTask, pcNameOfTask[i], 256, (void *) &parameters[i], xTaskPrio[i], &xTaskOfHandle[i] );
+#endif
     }
 
 	/* Start running the tasks. */
@@ -150,13 +155,6 @@ void myTraceSwitchedIn  (){
 }
 
 void myTraceSwitchedOut	(){
-}
-
-inline float myTraceGetTick(){
-}
-
-inline unsigned long myTraceGetTimeMillisecond(){
-	//return (xTaskGetTickCountFromISR() + myTraceGetTick()) * 1000 / configTICK_RATE_HZ;
 }
 
 void vApplicationTickHook()
