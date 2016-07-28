@@ -191,11 +191,16 @@ typedef struct xLIST
  */
 #define listCURRENT_LIST_LENGTH( pxList )		( ( pxList )->uxNumberOfItems )
 
-#ifdef configUSE_EDF_SCHEDULING
+#if defined configUSE_EDF_SCHEDULING  || defined configUSE_LSF_SCHEDULING
 
 #define listSET_LIST_ITEM_DEADLINE( pxListItem, xDeadline )  (( pxListItem )->xDeadline = ( xDeadline ))
 #define listGET_LIST_ITEM_DEADLINE( pxListItem ) ( (pxListItem)-> xDeadline )
 
+#define listSET_LIST_ITEM_REMAINTIME( pxListItem, xRemainTime )  (( pxListItem )->xRemainTime= ( xRemainTime ))
+#define listGET_LIST_ITEM_REMAINTIME( pxListItem ) ( (pxListItem)-> xRemainTime)
+
+#define listSET_LIST_ITEM_LASTSTARTTIME( pxListItem, xLastStartTime)  (( pxListItem )->xLastStartTime = ( xLastStartTime))
+#define listGET_LIST_ITEM_LASTSTARTTIME( pxListItem ) ( (pxListItem)-> xLastStartTime)
 #endif
 
 /*

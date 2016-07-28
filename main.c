@@ -18,6 +18,7 @@ struct parameter
     portBASE_TYPE xMyId;
     pvTaskFunType xMyFun;
     portTickType xPeriod;
+    portTickType WCET;
 }parameters[NUMBEROFTASK];
 
 xTaskHandle xTaskOfHandle[NUMBEROFTASK];
@@ -29,7 +30,7 @@ extern portBASE_TYPE xTaskPrio[NUMBEROFTASK];
 /* can be found in app.c */
 extern portTickType xPeriodTable[NUMBEROFTASK];
 extern pvTaskFunType xTaskTable[NUMBEROFTASK];
-extern xSemaphoreHandle xSemaphoreTable[NUMBEROFTASK];
+extern portTickType WCET[NUMBEROFTASK];
 extern char * pcNameOfTask[NUMBEROFTASK];
 
 portBASE_TYPE miss[NUMBEROFTASK];
@@ -43,6 +44,7 @@ void vParametersInit()
         parameters[i].xMyId = i;
         parameters[i].xMyFun = xTaskTable[i];
         parameters[i].xPeriod = xPeriodTable[i];
+        parameters[i].WCET = WCET[i];
         miss[i] = 0;
     }
 }
@@ -53,6 +55,7 @@ void vTimeTask( void * pvParameter )
     portBASE_TYPE xMyId = xMyParameter->xMyId;
     pvTaskFunType xMyFun = xMyParameter->xMyFun;
     portTickType xMyPeriod = xMyParameter->xPeriod;
+    portTickType xMyWCET = xMyParameter->WCET;
 
     portBASE_TYPE i;
     portTickType xCurrentTime;
@@ -108,8 +111,9 @@ void vTimeTask( void * pvParameter )
         vPrintNumber( (xMyId + 10)* 3 );
         #endif
       
-#ifdef configUSE_EDF_SCHEDULING
+#if defined configUSE_EDF_SCHEDULING || defined configUSE_LSF_SCHEDULING
         vSetTaskDeadline( xDeadline );
+        vSetTaskRemainTime( xMyWCET );
 #endif
         vTaskDelayUntil( &xLastExecutionTime, xMyPeriod / portTICK_RATE_MS );
         //vTaskDelay( xMyPeriod / portTICK_RATE_MS );
@@ -120,6 +124,7 @@ void vTimeTask( void * pvParameter )
 int main()
 {
 
+    int i;
 	init_led();
 	init_rs232();
 	enable_rs232_interrupts();
@@ -128,7 +133,7 @@ int main()
     vParametersInit();
     vPapabenchInit();
 
-    int i;
+
     for( i = 0; i < NUMBEROFTASK; ++ i )
     {
         if(i == 0 || i == 1 || i == 5)
@@ -136,7 +141,9 @@ int main()
             //continue;
         }
 #ifdef configUSE_EDF_SCHEDULING
-        xTaskPeriodicCreate(vTimeTask, pcNameOfTask[i],  256, (void *) &parameters[i], xTaskPrio[i], &xTaskOfHandle[i], parameters[i].xPeriod);
+        xTaskCreateForEDF(vTimeTask, pcNameOfTask[i],  256, (void *) &parameters[i], xTaskPrio[i], &xTaskOfHandle[i], parameters[i].xPeriod);
+#elif defined configUSE_LSF_SCHEDULING
+        xTaskCreateForLSF(vTimeTask, pcNameOfTask[i], 256, (void *) & parameters[i], xTaskPrio[i], &xTaskOfHandle[i], parameters[i].xPeriod, parameters[i].WCET);
 #else
         xTaskCreate( vTimeTask, pcNameOfTask[i], 256, (void *) &parameters[i], xTaskPrio[i], &xTaskOfHandle[i] );
 #endif

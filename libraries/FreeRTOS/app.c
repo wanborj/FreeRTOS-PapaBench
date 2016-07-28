@@ -64,20 +64,39 @@ portBASE_TYPE xTaskPrio[NUMBEROFTASK] =
 
 portTickType xPeriodTable[NUMBEROFTASK] = 
 {
-    25,
-    25,
-    50,
-    50,
-    50,
-    25,
-    50,
-    50,
     250,
     250,
+    500,
+    500,
+    500,
     250,
-    250,
-    100   
+    500,
+    500,
+    2500,
+    2500,
+    2500,
+    2500,
+    1000   
 };
+
+#if defined configUSE_LSF_SCHEDULING
+portTickType WCET[NUMBEROFTASK]=
+{
+    0,
+    0,
+    6,
+    7,
+    6,
+    0,
+    5,
+    1,
+    1,
+    3,
+    2,
+    6,
+    2
+};
+#endif
 
 
 char * pcNameOfTask[NUMBEROFTASK] =

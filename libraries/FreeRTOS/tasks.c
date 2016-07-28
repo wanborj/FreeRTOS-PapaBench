@@ -210,6 +210,40 @@ PRIVILEGED_DATA static portTickType xNextTaskUnblockTime						= ( portTickType )
 
 /*-----------------------------------------------------------*/
 
+#if defined configUSE_EDF_SCHEDULING || defined configUSE_LSF_SCHEDULING
+
+portTickType xGetTaskRemainTime( xListItem * pxListItem )
+{
+    return listGET_LIST_ITEM_DEADLINE( pxListItem ) - xTickCount - listGET_LIST_ITEM_REMAINTIME( pxListItem ); 
+}
+
+void vSetTaskDeadline( portTickType xDeadline)
+{
+    listSET_LIST_ITEM_DEADLINE( &pxCurrentTCB->xGenericListItem, xDeadline);
+}
+
+void vSetTaskRemainTime( portTickType xRemainTime )
+{
+    listSET_LIST_ITEM_REMAINTIME( &pxCurrentTCB->xGenericListItem, xRemainTime );
+}
+
+portBASE_TYPE xTaskCreateForEDF( pdTASK_CODE pvTaskCode, const signed portCHAR * const pcName , unsigned portSHORT usStackDepth, void * pvParameters, unsigned portBASE_TYPE uxPriority , xTaskHandle * pxCreatedTask, portTickType xDeadline)
+{
+    portBASE_TYPE xReturn;
+    xReturn = xTaskCreate( pvTaskCode, pcName, usStackDepth, pvParameters, uxPriority, pxCreatedTask );
+    listSET_LIST_ITEM_DEADLINE(&((tskTCB *) (*pxCreatedTask))->xGenericListItem, xDeadline );
+    return xReturn; 
+}
+
+portBASE_TYPE xTaskCreateForLSF( pdTASK_CODE pvTaskCode, const signed portCHAR * const pcName , unsigned portSHORT usStackDepth, void * pvParameters, unsigned portBASE_TYPE uxPriority , xTaskHandle * pxCreatedTask, portTickType xDeadline, portTickType xRemainTime)
+{
+    portBASE_TYPE xReturn;
+    xReturn = xTaskCreate( pvTaskCode, pcName, usStackDepth, pvParameters, uxPriority, pxCreatedTask );
+    listSET_LIST_ITEM_DEADLINE(&((tskTCB *) (*pxCreatedTask))->xGenericListItem, xDeadline );
+    listSET_LIST_ITEM_REMAINTIME(&((tskTCB *) (*pxCreatedTask))->xGenericListItem, xRemainTime);
+    return xReturn; 
+}
+#endif
 /*
  * Place the task represented by pxTCB into the appropriate ready queue for
  * the task.  It is inserted at the end of the list.  One quirk of this is
@@ -1602,10 +1636,11 @@ tskTCB * pxTCB;
 
 void vTaskSwitchContext( void )
 {
-    #ifdef configUSE_EDF_SCHEDULING
+    #if defined configUSE_EDF_SCHEDULING || defined configUSE_LSF_SCHEDULING
     portBASE_TYPE xLen, i;
     tskTCB * pxNextTask;
     #endif
+
 	if( uxSchedulerSuspended != ( unsigned portBASE_TYPE ) pdFALSE )
 	{
 		/* The scheduler is currently suspended - do not allow a context
@@ -1639,7 +1674,7 @@ void vTaskSwitchContext( void )
 		taskFIRST_CHECK_FOR_STACK_OVERFLOW();
 		taskSECOND_CHECK_FOR_STACK_OVERFLOW();
 	
-        #ifdef configUSE_EDF_SCHEDULING
+        #ifdef configUSE_EDF_SCHEDULING 
         if( (xLen = listCURRENT_LIST_LENGTH( &(pxReadyTasksLists[1]) )) > 0 )
         {
             vPrintString(" the Length of ready list is: ");
@@ -1703,6 +1738,40 @@ void vTaskSwitchContext( void )
             listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[ 0 ] ) );
         }
 
+        #elif defined configUSE_LSF_SCHEDULING
+        if( (xLen = listCURRENT_LIST_LENGTH( &pxReadyTasksLists[1] )) > 0 ) 
+        {
+            vPrintString(" the Length of ready list is: ");
+            vPrintNumber( xLen );
+            // if current task dosen't belong to the ready list, then don't need update remain execution time of current task 
+            if( pxCurrentTCB->xGenericListItem.pvContainer == &pxReadyTasksLists[1])
+            {
+                // update the remain time of current task
+                pxCurrentTCB->xGenericListItem.xRemainTime -= (xTickCount - pxCurrentTCB->xGenericListItem.xLastStartTime);
+            }
+            else
+            {
+                vPrintString(" current task is idle \n\r");
+            }
+
+            listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[1] ) );
+            for( i = 0; i< xLen ; ++i )
+            {
+                // find the next one after current TCB
+                listGET_OWNER_OF_NEXT_ENTRY( pxNextTask, &( pxReadyTasksLists[1] ) );
+                if( xGetTaskRemainTime( &pxCurrentTCB->xGenericListItem ) >
+                   xGetTaskRemainTime( &pxNextTask->xGenericListItem ) )
+                {
+                    pxCurrentTCB = pxNextTask;
+                }
+            }
+            // update the xLastStartTime of pxCurrentTCB;
+            pxCurrentTCB->xGenericListItem.xLastStartTime = xTickCount;
+        }
+        else
+        {
+            listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[0] ) );
+        }
         #else
 		/* Find the highest priority queue that contains ready tasks. */
 		while( listLIST_IS_EMPTY( &( pxReadyTasksLists[ uxTopReadyPriority ] ) ) )
@@ -2553,21 +2622,6 @@ void vTaskExitCritical( void )
 #endif
 /*-----------------------------------------------------------*/
 
-#ifdef configUSE_EDF_SCHEDULING
 
-void vSetTaskDeadline( portTickType xDeadline)
-{
-    listSET_LIST_ITEM_DEADLINE( &pxCurrentTCB->xGenericListItem, xDeadline);
-}
-
-portBASE_TYPE xTaskPeriodicCreate( pdTASK_CODE pvTaskCode, const signed portCHAR * const pcName , unsigned portSHORT usStackDepth, void * pvParameters, unsigned portBASE_TYPE uxPriority , xTaskHandle * pxCreatedTask, portTickType xDeadline)
-{
-    portBASE_TYPE xReturn;
-    xReturn = xTaskCreate( pvTaskCode, pcName, usStackDepth, pvParameters, uxPriority, pxCreatedTask );
-    listSET_LIST_ITEM_DEADLINE(&((tskTCB *) (*pxCreatedTask))->xGenericListItem, xDeadline );
-    return xReturn; 
-}
-
-#endif
 
 

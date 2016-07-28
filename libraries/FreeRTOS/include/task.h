@@ -285,9 +285,7 @@ typedef struct xTASK_PARAMTERS
 
 
 
-#ifdef configUSE_EDF_SCHEDULING
-portBASE_TYPE xTaskPeriodicCreate( pdTASK_CODE pvTaskCode, const signed portCHAR * const pcName , unsigned portSHORT usStackDepth, void * pvParameters, unsigned portBASE_TYPE uxPriority , xTaskHandle * pxCreatedTask, portTickType Deadline);
-#endif
+
 /**
  * task. h
  *<pre>
@@ -1332,10 +1330,17 @@ unsigned portBASE_TYPE uxTaskGetTaskNumber( xTaskHandle xTask );
 void vTaskSetTaskNumber( xTaskHandle xTask, unsigned portBASE_TYPE uxHandle );
 
 
-#ifdef configUSE_EDF_SCHEDULING
+#if defined configUSE_EDF_SCHEDULING || defined configUSE_LSF_SCHEDULING
 
-void vSetTaskDeadline( portTickType Deadline);
+void vGetTaskRemainTime( xListItem * pxListItem );
 
+void vSetTaskDeadline( portTickType xDeadline);
+
+void vSetTaskRemainTime( portTickType xRemainTime );
+
+portBASE_TYPE xTaskCreateForEDF( pdTASK_CODE pvTaskCode, const signed portCHAR * const pcName , unsigned portSHORT usStackDepth, void * pvParameters, unsigned portBASE_TYPE uxPriority , xTaskHandle * pxCreatedTask, portTickType xDeadline);
+
+portBASE_TYPE xTaskCreateForLSF( pdTASK_CODE pvTaskCode, const signed portCHAR * const pcName , unsigned portSHORT usStackDepth, void * pvParameters, unsigned portBASE_TYPE uxPriority , xTaskHandle * pxCreatedTask, portTickType xDeadline, portTickType xRemainTime);
 #endif
 
 
