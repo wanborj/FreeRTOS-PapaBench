@@ -26,7 +26,7 @@ xSemaphoreHandle xSemaphoreTable[NUMBEROFTASK];
 
 
 
-#if (defined configUSE_LSF_SCHEDULING) || (defined configUSE_EDF_SCHEDULING)
+#if (defined configUSE_LSF_SCHEDULING) || (defined configUSE_EDF_SCHEDULING) || (defined configUSE_RR_SCHEDULING)
 portBASE_TYPE xTaskPrio[NUMBEROFTASK] = 
 {
     1,

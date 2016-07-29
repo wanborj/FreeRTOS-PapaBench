@@ -49,8 +49,8 @@ void vParametersInit()
         parameters[i].xMyFun = xTaskTable[i];
         parameters[i].xPeriod = xPeriodTable[i];
         #ifdef configUSE_LSF_SCHEDULING
-	    parameters[i].WCET = WCET[i];
-        #endif
+	parameters[i].WCET = WCET[i];
+	#endif
         miss[i] = 0;
     }
 }
@@ -125,7 +125,7 @@ void vTimeTask( void * pvParameter )
 #endif
 
 #if defined configUSE_LSF_SCHEDULING
-        vSetTaskRemainTime( xMyWCET );
+	vSetTaskRemainTime( xMyWCET );
 #endif
         vTaskDelayUntil( &xLastExecutionTime, xMyPeriod / portTICK_RATE_MS );
     }

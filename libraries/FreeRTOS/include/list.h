@@ -199,7 +199,7 @@ typedef struct xLIST
 #define listSET_LIST_ITEM_REMAINTIME( pxListItem, xRemainTime )  (( pxListItem )->xRemainTime= ( xRemainTime ))
 #define listGET_LIST_ITEM_REMAINTIME( pxListItem ) ( (pxListItem)-> xRemainTime)
 
-#define listSET_LIST_ITEM_LASTSTARTTIME( pxListItem, xLastStartTime)  (( pxListItem )->xLastStartTime = ( xLastStartTime))
+#define listSET_LIST_ITEM_LASTSTARTTIME( pxListItem, xTickCount)  (( pxListItem )->xLastStartTime = ( xTickCount))
 #define listGET_LIST_ITEM_LASTSTARTTIME( pxListItem ) ( (pxListItem)-> xLastStartTime)
 #endif
 

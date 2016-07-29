@@ -1677,8 +1677,8 @@ void vTaskSwitchContext( void )
         #ifdef configUSE_EDF_SCHEDULING 
         if( (xLen = listCURRENT_LIST_LENGTH( &(pxReadyTasksLists[1]) )) > 0 )
         {
-            vPrintString(" the Length of ready list is: ");
-            vPrintNumber( xLen );
+            //vPrintString(" the Length of ready list is: ");
+            //vPrintNumber( xLen );
             // if current task dosen't belong to the ready list, then chose the first task with smallest deadline
             if( pxCurrentTCB->xGenericListItem.pvContainer != &pxReadyTasksLists[1])
             {
@@ -1693,7 +1693,7 @@ void vTaskSwitchContext( void )
                         pxCurrentTCB = pxNextTask;
                     }
                 }
-                vPrintString("context switch from idle task\n\r");
+                //vPrintString("context switch from idle task\n\r");
             }
             else  // round-robin for tasks with same deadline
             {
@@ -1724,7 +1724,7 @@ void vTaskSwitchContext( void )
                                 listGET_LIST_ITEM_DEADLINE( &pxNextTask->xGenericListItem ))
                         {
                             pxCurrentTCB = pxNextTask;    
-                            vPrintString(" find the next task with round-robin\n\r");
+                            //vPrintString(" find the next task with round-robin\n\r");
                             break;
                         }
                     }
@@ -1741,8 +1741,8 @@ void vTaskSwitchContext( void )
         #elif defined configUSE_LSF_SCHEDULING
         if( (xLen = listCURRENT_LIST_LENGTH( &pxReadyTasksLists[1] )) > 0 ) 
         {
-            vPrintString(" the Length of ready list is: ");
-            vPrintNumber( xLen );
+            //vPrintString(" the Length of ready list is: ");
+            //vPrintNumber( xLen );
             // if current task dosen't belong to the ready list, then don't need update remain execution time of current task 
             if( pxCurrentTCB->xGenericListItem.pvContainer == &pxReadyTasksLists[1])
             {
@@ -1751,7 +1751,7 @@ void vTaskSwitchContext( void )
             }
             else
             {
-                vPrintString(" current task is idle \n\r");
+                //vPrintString(" current task is idle or finished\n\r");
             }
 
             listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[1] ) );
@@ -1766,7 +1766,7 @@ void vTaskSwitchContext( void )
                 }
             }
             // update the xLastStartTime of pxCurrentTCB;
-            pxCurrentTCB->xGenericListItem.xLastStartTime = xTickCount;
+            listSET_LIST_ITEM_LASTSTARTTIME( &pxCurrentTCB->xGenericListItem, xTickCount );
         }
         else
         {
